@@ -17,6 +17,10 @@
   ],
   "author": "chendeli419287484@qq.com",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Alan1034/GeneralBasicTable.git"
+  },
   "devDependencies": {
     "eslint": "^7.31.0",
     "eslint-plugin-vue": "^7.14.0"
