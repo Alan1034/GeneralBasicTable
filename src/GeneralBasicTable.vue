@@ -90,7 +90,7 @@ export default {
       default: {},
     },
   },
-  beforeCreate() {
+  created() {
     this.$router.push({ query: { page: this.pageNum, limit: this.pageSize } });
   },
   methods: {
