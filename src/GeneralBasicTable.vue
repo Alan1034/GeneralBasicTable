@@ -90,6 +90,9 @@ export default {
       default: {},
     },
   },
+  beforeCreate() {
+    this.$router.push({ query: { page: this.pageNum, limit: this.pageSize } });
+  },
   methods: {
     /** 查询列表 */
     handleSearch(params = {}) {
