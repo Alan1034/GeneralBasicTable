@@ -16,7 +16,7 @@
 <ElButton>{name}</ElButton>
 ; }, }, ] */
 <template>
-  <el-table v-loading="loading" :data="tableList" :size="size" v-bind="$attrs">
+  <el-table :data="tableList" :size="size" v-bind="$attrs">
     <el-table-column
       v-for="column in tableColumn"
       :key="column.key"
