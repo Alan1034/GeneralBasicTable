@@ -76,7 +76,6 @@ export default {
         this.$route.query.page &&
         this.pageNum !== Number(this.$route.query.page)
       ) {
-        console.log("update");
         this.pageNum = Number(this.$route.query.page);
       }
       if (
