@@ -39,8 +39,8 @@
   <Pagination
     v-show="total > 0"
     :total="total"
-    :current-page="pageNum"
-    :page-size="pageSize"
+    :page="pageNum"
+    :limit="pageSize"
     @pagination="handleSearch"
   />
 </template>

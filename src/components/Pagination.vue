@@ -26,9 +26,11 @@ export default {
     },
     page: {
       type: Number,
+      default: 1,
     },
     limit: {
       type: Number,
+      default: 10,
     },
     pageSizes: {
       type: Array,
