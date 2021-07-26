@@ -39,8 +39,8 @@
   <Pagination
     v-show="total > 0"
     :total="total"
-    :page="pageNum"
-    :limit="pageSize"
+    v-model:page="pageNum"
+    v-model:limit="pageSize"
     @pagination="handleSearch"
   />
 </template>
@@ -67,6 +67,25 @@ export default {
       pageNum: Number(this.$route.query.page) || 1,
       pageSize: Number(this.$route.query.limit) || 10,
     };
+  },
+  updated() {
+    // 如果在别的组件切换参数，把参数监听回data中
+    this.$nextTick(function () {
+      // 仅在渲染整个视图之后运行的代码
+      if (
+        this.$route.query.page &&
+        this.pageNum !== Number(this.$route.query.page)
+      ) {
+        console.log("update");
+        this.pageNum = Number(this.$route.query.page);
+      }
+      if (
+        this.$route.query.limit &&
+        this.pageSize !== Number(this.$route.query.limit)
+      ) {
+        this.pageSize = Number(this.$route.query.limit);
+      }
+    });
   },
   props: {
     tableList: {
@@ -99,11 +118,9 @@ export default {
   },
   methods: {
     /** 查询列表 */
-    handleSearch(params = {}) {
-      console.log(params);
-      const { page = this.pageNum, limit = this.pageSize } = params;
-      // this.loading = true;
-      this.$router.push({ query: { page, limit } });
+    handleSearch() {
+      const params = { page: this.pageNum, limit: this.pageSize };
+      this.$router.push({ query: { ...params } });
       this.getList(params);
     },
     currentTabComponent(column, scope) {

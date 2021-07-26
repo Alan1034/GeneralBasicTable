@@ -58,6 +58,13 @@ export default {
       },
       set(val) {
         this.$emit("update:page", val);
+        this.$emit("pagination", { page: val, limit: this.pageSize });
+        if (this.autoScroll) {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
       },
     },
     pageSize: {
@@ -66,27 +73,14 @@ export default {
       },
       set(val) {
         this.$emit("update:limit", val);
+        this.$emit("pagination", { page: this.currentPage, limit: val });
+        if (this.autoScroll) {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
       },
-    },
-  },
-  methods: {
-    handleSizeChange(val) {
-      this.$emit("pagination", { page: this.currentPage, limit: val });
-      if (this.autoScroll) {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      }
-    },
-    handleCurrentChange(val) {
-      this.$emit("pagination", { page: val, limit: this.pageSize });
-      if (this.autoScroll) {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      }
     },
   },
 };
