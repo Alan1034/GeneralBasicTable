@@ -89,6 +89,10 @@ export default {
       type: Object,
       default: {},
     },
+    getList: {
+      type: Function,
+      default: () => {},
+    },
   },
   created() {
     this.$router.push({ query: { page: this.pageNum, limit: this.pageSize } });
