@@ -113,13 +113,20 @@ export default {
     },
   },
   created() {
-    this.$router.push({ query: { page: this.pageNum, limit: this.pageSize } });
+    this.$router.push({
+      query: {
+        ...this.$route?.query,
+        page: this.pageNum,
+        limit: this.pageSize,
+      },
+    });
   },
   methods: {
     /** 查询列表 */
     handleSearch() {
+      console.log("search");
       const params = { page: this.pageNum, limit: this.pageSize };
-      this.$router.push({ query: { ...this.$router?.query, ...params } });
+      this.$router.push({ query: { ...this.$route?.query, ...params } });
       this.getList(params);
     },
     currentTabComponent(column, scope) {
