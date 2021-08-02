@@ -119,7 +119,7 @@ export default {
     /** 查询列表 */
     handleSearch() {
       const params = { page: this.pageNum, limit: this.pageSize };
-      this.$router.push({ query: { ...params } });
+      this.$router.push({ query: { ...this.$router?.query, ...params } });
       this.getList(params);
     },
     currentTabComponent(column, scope) {
