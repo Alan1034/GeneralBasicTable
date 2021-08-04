@@ -124,10 +124,14 @@ export default {
   methods: {
     /** 查询列表 */
     handleSearch() {
-      console.log("search");
+      // console.log("search");
       const params = { page: this.pageNum, limit: this.pageSize };
-      this.$router.push({ query: { ...this.$route?.query, ...params } });
-      this.getList(params);
+      const searchParams = {
+        ...this.$route?.query,
+        ...params,
+      };
+      this.$router.push({ query: { ...searchParams } });
+      this.getList({ ...searchParams });
     },
     currentTabComponent(column, scope) {
       return "tab-archive";
