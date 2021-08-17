@@ -70,21 +70,18 @@ export default {
   },
   updated() {
     // 如果在别的组件切换参数，把参数监听回data中
-    this.$nextTick(function () {
-      // 仅在渲染整个视图之后运行的代码
-      if (
-        this.$route.query.page &&
-        this.pageNum !== Number(this.$route.query.page)
-      ) {
-        this.pageNum = Number(this.$route.query.page);
-      }
-      if (
-        this.$route.query.limit &&
-        this.pageSize !== Number(this.$route.query.limit)
-      ) {
-        this.pageSize = Number(this.$route.query.limit);
-      }
-    });
+    if (
+      this.$route.query.page &&
+      this.pageNum !== Number(this.$route.query.page)
+    ) {
+      this.pageNum = Number(this.$route.query.page);
+    }
+    if (
+      this.$route.query.limit &&
+      this.pageSize !== Number(this.$route.query.limit)
+    ) {
+      this.pageSize = Number(this.$route.query.limit);
+    }
   },
   props: {
     tableList: {
@@ -115,17 +112,16 @@ export default {
   created() {
     this.$router.push({
       query: {
-        ...this.$route?.query,
         page: this.pageNum,
         limit: this.pageSize,
+        ...this.$route?.query,
       },
     });
   },
   methods: {
     /** 查询列表 */
-    handleSearch() {
-      // console.log("search");
-      const params = { page: this.pageNum, limit: this.pageSize };
+    handleSearch(params = { page: this.pageNum, limit: this.pageSize }) {
+      // const params = { page: this.pageNum, limit: this.pageSize };
       const searchParams = {
         ...this.$route?.query,
         ...params,

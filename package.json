@@ -22,12 +22,15 @@
     "url": "https://github.com/Alan1034/GeneralBasicTable.git"
   },
   "devDependencies": {
-    "eslint": "^7.31.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
     "eslint-plugin-vue": "^7.14.0"
   },
   "dependencies": {
-    "element-plus": "^1.0.2-beta.55",
-    "vue": "^3.1.5",
+    "babel-eslint": "^10.1.0",
+    "element-plus": "^1.0.2-beta.70",
+    "eslint": "^7.32.0",
+    "vue": "^3.2.2",
     "vue-router": "^4.0.5"
   }
 }

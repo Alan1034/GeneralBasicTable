@@ -1,10 +1,10 @@
 <!--
  * @Author: 陈德立*******419287484@qq.com
  * @Date: 2021-07-19 10:56:53
- * @LastEditTime: 2021-08-17 15:13:11
+ * @LastEditTime: 2021-08-17 19:22:19
  * @LastEditors: 陈德立*******419287484@qq.com
  * @Github: https://github.com/Alan1034
- * @Description: pagination
+ * @Description: 
  * @FilePath: \GeneralBasicTable\src\components\Pagination.vue
  * 
 -->
@@ -18,6 +18,8 @@
       :page-sizes="pageSizes"
       :total="total"
       v-bind="$attrs"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
     />
   </div>
 </template>
@@ -91,6 +93,12 @@ export default {
       },
     },
   },
+  methods:{
+    handleSizeChange(val){
+    } ,
+    handleCurrentChange(val){
+    } 
+  }
 };
 </script>
 
