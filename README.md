@@ -2,6 +2,7 @@
 
 一个从零搭建的Vue3纯净框架，用于Npm包 <br/>
 示例:
+
     <GeneralBasicTable
         size="mini"
         :getList="getList"
