@@ -1,3 +1,13 @@
+<!--
+ * @Author: 陈德立*******419287484@qq.com
+ * @Date: 2021-07-19 10:56:53
+ * @LastEditTime: 2021-08-17 15:02:29
+ * @LastEditors: 陈德立*******419287484@qq.com
+ * @Github: https://github.com/Alan1034
+ * @Description: pagination
+ * @FilePath: \GeneralBasicTable\src\components\Pagination.vue
+ * 
+-->
 <template>
   <div class="pagination-container">
     <el-pagination
@@ -8,8 +18,7 @@
       :page-sizes="pageSizes"
       :total="total"
       v-bind="$attrs"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
+ -->
     />
   </div>
 </template>
