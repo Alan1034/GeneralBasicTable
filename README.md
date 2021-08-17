@@ -16,7 +16,7 @@
 
 数据示例:
 
- tableList: [
+    tableList: [
         {
           base: "inch",
         },
@@ -38,44 +38,42 @@
       ], //表格内容
 
 
- tableColumn: [
-   {
-     key: 1,
-     // prop: "",
-     // label: "",
-     render: (scope) => {
-       const { $index } = scope;
-       let ele = "";
-       switch ($index) {
-         case 1:
-           ele = "Lenght";
-           break;
-         case 2:
-           ele = "Bust";
-           break;
-         case 3:
-           ele = "Waist";
-           break; 
-         default:
-           break;
-       }
-       return ele;
-     },
-   },
-   {
-     key: 2,
-     prop: "XS",
-     label: "XS",
-     render: (scope) => {
-       const { base } = scope.row;
-       let ele = base;
-       if (!base) {
-         ele = <ElInput></ElInput>;
-       }
-       return ele;
-     },
-   },
- ],
+    tableColumn: [
+      {
+        key: 1,
+        render: (scope) => {
+          const { $index } = scope;
+          let ele = "";
+          switch ($index) {
+            case 1:
+              ele = "Lenght";
+              break;
+            case 2:
+              ele = "Bust";
+              break;
+            case 3:
+              ele = "Waist";
+              break; 
+            default:
+              break;
+          }
+          return ele;
+        },
+      },
+      {
+        key: 2,
+        prop: "XS",
+        label: "XS",
+        render: (scope) => {
+          const { base } = scope.row;
+          let ele = base;
+          if (!base) {
+            ele = < ElInput></ ElInput>;
+          }
+          return ele;
+        },
+      },
+    ],
 
 安装：npm i general-basic-table<br/>
 install: npm i general-basic-table
