@@ -1,6 +1,7 @@
-# VueNpmFrame
 
-一个从零搭建的Vue3纯净框架，用于Npm包 <br/>
+# GeneralBasicTable
+
+一个Vue3表格组件 <br/>
 示例:
 
     <GeneralBasicTable
