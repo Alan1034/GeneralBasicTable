@@ -15,7 +15,7 @@
      ...一些传入插槽的内容
     </GeneralBasicTable>
 
-![image-20210823112148569](https://raw.githubusercontent.com/Alan1034/PicturesServer/main/PicGo_imgs/202108231121814.png?token=AICSKHSOUNPPZTR76T4UMELBEMKIW)
+![image](https://raw.githubusercontent.com/Alan1034/PicturesServer/main/PicGo_imgs/202108231121814.png?token=AICSKHTT6CTUIOLWOWTTICTBEMNFK)
 
 数据示例:
 
