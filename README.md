@@ -15,6 +15,8 @@
      ...一些传入插槽的内容
     </GeneralBasicTable>
 
+![image-20210823112148569](https://raw.githubusercontent.com/Alan1034/PicturesServer/main/PicGo_imgs/202108231121814.png?token=AICSKHSOUNPPZTR76T4UMELBEMKIW)
+
 数据示例:
 
     tableList: [
