@@ -1,4 +1,3 @@
-
 # GeneralBasicTable
 
 一个Vue3表格组件 <br/>
@@ -9,6 +8,7 @@
         :getList="getList"
         :tableColumn="tableColumn"
         :tableList="tableList"
+        noUrlParameters // 不接受和不改变url的参数
         border
         :style="{ width: '98%', marginBottom: 10 + 'px' }"
     >

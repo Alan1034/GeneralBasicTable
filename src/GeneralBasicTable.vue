@@ -85,6 +85,10 @@ export default {
     getList: {
       type: Function,
       default: () => {}
+    },
+    noUrlParameters: { // 不接受和不改变url的参数
+      type: Boolean,
+      default: () => false
     }
   },
   data() {
@@ -95,6 +99,9 @@ export default {
   },
   updated() {
     // 如果在别的组件切换参数，把参数监听回data中
+    if (this.noUrlParameters) {
+      return
+    }
     if (
       this.$route.query.page &&
       this.pageNum !== Number(this.$route.query.page)
@@ -121,11 +128,17 @@ export default {
     /** 查询列表 */
     handleSearch(params = { page: this.pageNum, limit: this.pageSize }) {
       // const params = { page: this.pageNum, limit: this.pageSize };
-      const searchParams = {
-        ...this.$route?.query,
+      let searchParams = {
         ...params
       }
-      this.$router.push({ query: { ...searchParams }})
+      if (!this.noUrlParameters) {
+        searchParams = {
+          ...this.$route?.query,
+          ...params
+        }
+        this.$router.push({ query: { ...searchParams }})
+      }
+
       this.getList({ ...searchParams })
     },
     currentTabComponent(column, scope) {
