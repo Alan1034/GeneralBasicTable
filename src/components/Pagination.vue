@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈德立*******419287484@qq.com
  * @Date: 2021-07-19 10:56:53
- * @LastEditTime: 2021-08-30 11:37:50
+ * @LastEditTime: 2021-10-08 15:48:38
  * @LastEditors: 陈德立*******419287484@qq.com
  * @Github: https://github.com/Alan1034
  * @Description:
@@ -13,6 +13,8 @@
     <el-pagination
       v-model:current-page="currentPage"
       v-model:page-size="pageSize"
+      :current-page.sync="currentPage"
+      :page-size.sync="pageSize"
       :background="background"
       :layout="layout"
       :page-sizes="pageSizes"
@@ -25,81 +27,79 @@
 </template>
 
 <script>
-import { ElPagination } from 'element-plus'
+// import { ElPagination } from 'element-plus'
 export default {
-  name: 'Pagination',
-  components: { ElPagination },
+  name: "Pagination",
+  // components: { ElPagination },
   props: {
     total: {
       required: true,
-      type: Number
+      type: Number,
     },
     page: {
       type: Number,
-      default: 1
+      default: 1,
     },
     limit: {
       type: Number,
-      default: 10
+      default: 10,
     },
     pageSizes: {
       type: Array,
       default() {
-        return [10, 20, 30, 50]
-      }
+        return [10, 20, 30, 50];
+      },
     },
     layout: {
       type: String,
-      default: 'total, sizes, prev, pager, next, jumper'
+      default: "total, sizes, prev, pager, next, jumper",
     },
     background: {
       type: Boolean,
-      default: true
+      default: true,
     },
     autoScroll: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   computed: {
     currentPage: {
       get() {
-        return this.page
+        return this.page;
       },
       set(val) {
-        this.$emit('update:page', val)
-        this.$emit('pagination', { page: val, limit: this.pageSize })
+        this.$emit("update:page", val);
+        this.$emit("pagination", { page: val, limit: this.pageSize });
         if (this.autoScroll) {
           window.scrollTo({
             top: 0,
-            behavior: 'smooth'
-          })
+            behavior: "smooth",
+          });
         }
-      }
+      },
     },
     pageSize: {
       get() {
-        return this.limit
+        return this.limit;
       },
       set(val) {
-        this.$emit('update:limit', val)
-        this.$emit('pagination', { page: this.currentPage, limit: val })
+        this.$emit("update:limit", val);
+        this.$emit("pagination", { page: this.currentPage, limit: val });
         if (this.autoScroll) {
           window.scrollTo({
             top: 0,
-            behavior: 'smooth'
-          })
+            behavior: "smooth",
+          });
         }
-      }
-    }
+      },
+    },
   },
   methods: {
-    handleSizeChange(val) {
-    },
-    handleCurrentChange(val) {
-    }
-  }
-}
+    handleSizeChange(val) {},
+    handleCurrentChange(val) {},
+  },
+};
 </script>
 
 <style scoped>

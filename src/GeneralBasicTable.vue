@@ -16,103 +16,116 @@
 <ElButton>{name}</ElButton>
 ; }, }, ] */
 <template>
-  <el-table :data="tableList" :size="size" v-bind="$attrs">
-    <el-table-column
-      v-for="column in tableColumn"
-      :key="column.key"
-      v-bind="column"
-    >
-      <template v-if="column.render" #default="scope">
-        <!-- 第一种方法，定义一个标签和一个组件 -->
-        <component
-          :is="currentTabComponent(column, scope)"
-          :column="column"
-          :scope="scope"
-        />
-        <!-- 第二种方法，传入一个组件 -->
-        <!-- <TableColumn :column="column" :scope="scope" /> -->
-      </template>
-    </el-table-column>
-    <slot />
-  </el-table>
-  <Pagination
-    v-show="total > 0"
-    v-model:page="pageNum"
-    v-model:limit="pageSize"
-    :total="total"
-    @pagination="handleSearch"
-  />
+  <div>
+    <el-table :data="tableList" :size="size" v-bind="$attrs">
+      <slot name="frontSlot" />
+      <el-table-column
+        v-for="column in tableColumn"
+        :key="column.key"
+        v-bind="column"
+      >
+        <template v-if="column.render && version === 2" slot-scope="scope">
+          <!-- 兼容vue2的写法 -->
+          <TableColumn :column="column" :scope="scope" />
+        </template>
+        <template v-else-if="column.render" #default="scope">
+          <!-- 第一种方法，定义一个标签和一个组件 -->
+          <component
+            :is="currentTabComponent(column, scope)"
+            :column="column"
+            :scope="scope"
+          />
+          <!-- 第二种方法，传入一个组件 -->
+          <!-- <TableColumn :column="column" :scope="scope" /> -->
+        </template>
+      </el-table-column>
+      <slot />
+    </el-table>
+    <!-- 兼容vue2的写法 -->
+    <Pagination
+      v-show="total > 0"
+      v-model:page="pageNum"
+      v-model:limit="pageSize"
+      :page.sync="pageNum"
+      :limit.sync="pageSize"
+      :total="total"
+      @pagination="handleSearch"
+    />
+  </div>
 </template>
 
 <script>
-import 'element-plus/packages/theme-chalk/src/base.scss'
-import { ElTable, ElTableColumn } from 'element-plus'
-import Pagination from './components/Pagination.vue'
-// import TableColumn from "./tableColumn";
+// import "element-plus/packages/theme-chalk/src/base.scss";
+// import { ElTable, ElTableColumn } from "element-plus";
+import Pagination from "./components/Pagination.vue";
+import Vue from "vue";
+import TableColumn from "./components/TableColumn.js";
+
 export default {
-  name: 'GeneralBasicTable',
+  name: "GeneralBasicTable",
   components: {
-    ElTable,
-    ElTableColumn,
+    // ElTable,
+    // ElTableColumn,
     Pagination,
-    // TableColumn,
+    TableColumn,
     TabArchive: (props) => {
-      const { column, scope } = props
-      return column.render(scope)
-    }
+      const { column, scope } = props;
+      return column.render(scope);
+    },
   },
   props: {
     tableList: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     tableColumn: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     total: {
       type: Number,
-      default: 0
+      default: 0,
     },
     size: {
       type: String,
-      default: () => 'medium'
+      default: () => "medium",
     },
     otherProps: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     getList: {
       type: Function,
-      default: () => {}
+      default: () => {},
     },
-    noUrlParameters: { // 不接受和不改变url的参数
+    noUrlParameters: {
+      // 不接受和不改变url的参数
       type: Boolean,
-      default: () => false
-    }
+      default: () => false,
+    },
   },
   data() {
     return {
       pageNum: Number(this.$route.query.page) || 1,
-      pageSize: Number(this.$route.query.limit) || 10
-    }
+      pageSize: Number(this.$route.query.limit) || 10,
+    };
   },
   updated() {
     // 如果在别的组件切换参数，把参数监听回data中
     if (this.noUrlParameters) {
-      return
+      return;
     }
     if (
       this.$route.query.page &&
       this.pageNum !== Number(this.$route.query.page)
     ) {
-      this.pageNum = Number(this.$route.query.page)
+      this.pageNum = Number(this.$route.query.page);
     }
     if (
       this.$route.query.limit &&
       this.pageSize !== Number(this.$route.query.limit)
     ) {
-      this.pageSize = Number(this.$route.query.limit)
+      this.pageSize = Number(this.$route.query.limit);
     }
   },
   created() {
@@ -120,32 +133,37 @@ export default {
       query: {
         page: this.pageNum,
         limit: this.pageSize,
-        ...this.$route?.query
-      }
-    })
+        ...this.$route?.query,
+      },
+    });
   },
   methods: {
     /** 查询列表 */
     handleSearch(params = { page: this.pageNum, limit: this.pageSize }) {
       // const params = { page: this.pageNum, limit: this.pageSize };
       let searchParams = {
-        ...params
-      }
+        ...params,
+      };
       if (!this.noUrlParameters) {
         searchParams = {
           ...this.$route?.query,
-          ...params
-        }
-        this.$router.push({ query: { ...searchParams }})
+          ...params,
+        };
+        this.$router.push({ query: { ...searchParams } });
       }
 
-      this.getList({ ...searchParams })
+      this.getList({ ...searchParams });
     },
     currentTabComponent(column, scope) {
-      return 'tab-archive'
-    }
-  }
-}
+      return "tab-archive";
+    },
+  },
+  computed: {
+    version() {
+      return Number(Vue.version.split(".")[0]);
+    },
+  },
+};
 </script>
 
 <style></style>

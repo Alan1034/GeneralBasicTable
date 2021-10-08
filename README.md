@@ -1,6 +1,6 @@
 # GeneralBasicTable
 
-一个Vue3表格组件 <br/>
+一个兼容Vue2和Vue3的表格组件 <br/>
 示例:
 
     <GeneralBasicTable
@@ -8,11 +8,16 @@
         :getList="getList"
         :tableColumn="tableColumn"
         :tableList="tableList"
+        :total="total"
         noUrlParameters // 不接受和不改变url的参数
         border
         :style="{ width: '98%', marginBottom: 10 + 'px' }"
     >
-     ...一些传入插槽的内容
+     frontSlot插槽放在前面，默认在后面
+     <template v-slot:frontSlot>
+        <el-table-column type="selection" width="55"> </el-table-column>
+      </template>
+        ...一些传入插槽的内容
     </GeneralBasicTable>
 
 ![image](https://raw.githubusercontent.com/Alan1034/PicturesServer/main/PicGo_imgs/202108231121814.png?token=AICSKHTT6CTUIOLWOWTTICTBEMNFK)
@@ -43,7 +48,7 @@
 
     tableColumn: [
       {
-        key: 1,
+        key: 2,
         render: (scope) => {
           const { $index } = scope;
           let ele = "";
@@ -56,7 +61,7 @@
               break;
             case 3:
               ele = "Waist";
-              break; 
+              break;
             default:
               break;
           }
@@ -64,17 +69,10 @@
         },
       },
       {
-        key: 2,
+        key: 3,
         prop: "XS",
         label: "XS",
-        render: (scope) => {
-          const { base } = scope.row;
-          let ele = base;
-          if (!base) {
-            ele = < ElInput></ ElInput>;
-          }
-          return ele;
-        },
+        align:"center"
       },
     ],
 
