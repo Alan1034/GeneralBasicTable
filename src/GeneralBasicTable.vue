@@ -24,19 +24,21 @@
         :key="column.key"
         v-bind="column"
       >
-        <template v-if="column.render && version === 2" slot-scope="scope">
-          <!-- 兼容vue2的写法 -->
-          <TableColumn :column="column" :scope="scope" />
-        </template>
-        <template v-else-if="column.render" #default="scope">
+        <template v-if="version === 3" #default="scope">
           <!-- 第一种方法，定义一个标签和一个组件 -->
           <component
+            v-if="column.render"
             :is="currentTabComponent(column, scope)"
             :column="column"
             :scope="scope"
           />
           <!-- 第二种方法，传入一个组件 -->
           <!-- <TableColumn :column="column" :scope="scope" /> -->
+          <div v-else>{{ scope.row[column.prop] }}</div>
+        </template>
+        <template v-if="column.render && version === 2" slot-scope="scope">
+          <!-- 兼容vue2的写法 -->
+          <TableColumn :column="column" :scope="scope" />
         </template>
       </el-table-column>
       <slot />
@@ -58,7 +60,7 @@
 // import "element-plus/packages/theme-chalk/src/base.scss";
 // import { ElTable, ElTableColumn } from "element-plus";
 import Pagination from "./components/Pagination.vue";
-import Vue from "vue";
+import * as Vue from "vue";
 import TableColumn from "./components/TableColumn.js";
 
 export default {
@@ -136,6 +138,7 @@ export default {
         ...this.$route?.query,
       },
     });
+    console.log(Vue);
   },
   methods: {
     /** 查询列表 */
@@ -160,7 +163,9 @@ export default {
   },
   computed: {
     version() {
-      return Number(Vue.version.split(".")[0]);
+      return Vue.default
+        ? Number(Vue.default.version.split(".")[0])
+        : Number(Vue.version.split(".")[0]);
     },
   },
 };
