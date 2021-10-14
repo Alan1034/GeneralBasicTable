@@ -108,8 +108,10 @@ export default {
   },
   data() {
     return {
-      pageNum: Number(this.$route.query.page) || 1,
-      pageSize: Number(this.$route.query.limit) || 10,
+      pageNum: this.noUrlParameters ? Number(this.$route.query.page) || 1 : 1,
+      pageSize: this.noUrlParameters
+        ? Number(this.$route.query.limit) || 10
+        : 10,
     };
   },
   updated() {
@@ -138,7 +140,6 @@ export default {
         ...this.$route?.query,
       },
     });
-    console.log(Vue);
   },
   methods: {
     /** 查询列表 */
