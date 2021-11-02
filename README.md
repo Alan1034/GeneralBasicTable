@@ -13,6 +13,7 @@
         border
         :style="{ width: '98%', marginBottom: 10 + 'px' }"
         @selection-change="handleSelectionChange" // 传入选择框以后的回调函数，传出一个val参数
+        @row-dblclick="addModel" // 行双击后的回调函数，传出row, column, event参数
     >
      frontSlot插槽放在前面，默认在后面
      <template v-slot:frontSlot>
@@ -20,6 +21,8 @@
       </template>
         ...一些传入插槽的内容
     </GeneralBasicTable>
+
+支持所有element-plus Table 表格的原生属性
 
 ![image](https://raw.githubusercontent.com/Alan1034/PicturesServer/main/PicGo_imgs/202108231121814.png?token=AICSKHTT6CTUIOLWOWTTICTBEMNFK)
 
