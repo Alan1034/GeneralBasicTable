@@ -12,6 +12,7 @@
         noUrlParameters // 不接受和不改变url的参数
         border
         :style="{ width: '98%', marginBottom: 10 + 'px' }"
+        @selection-change="handleSelectionChange" // 传入选择框以后的回调函数，传出一个val参数
     >
      frontSlot插槽放在前面，默认在后面
      <template v-slot:frontSlot>
