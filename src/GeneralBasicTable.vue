@@ -36,9 +36,10 @@
           <!-- <TableColumn :column="column" :scope="scope" /> -->
           <div v-else>{{ scope.row[column.prop] }}</div>
         </template>
-        <template v-if="column.render && version === 2" slot-scope="scope">
+        <template v-if="version === 2" slot-scope="scope">
           <!-- 兼容vue2的写法 -->
-          <TableColumn :column="column" :scope="scope" />
+          <TableColumn v-if="column.render" :column="column" :scope="scope" />
+          <div v-else>{{ scope.row[column.prop] }}</div>
         </template>
       </el-table-column>
       <slot />
