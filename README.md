@@ -1,3 +1,13 @@
+<!--
+ * @Author: 陈德立*******419287484@qq.com
+ * @Date: 2021-07-19 10:56:51
+ * @LastEditTime: 2021-11-22 18:07:04
+ * @LastEditors: 陈德立*******419287484@qq.com
+ * @Github: https://github.com/Alan1034
+ * @Description: 
+ * @FilePath: \GeneralBasicTable\README.md
+ * 
+-->
 # GeneralBasicTable
 
 一个兼容Vue2和Vue3的表格组件 <br/>
@@ -50,35 +60,45 @@
       ], //表格内容
 
 
-    tableColumn: [
-      {
-        key: 2,
-        render: (scope) => {
-          const { $index } = scope;
-          let ele = "";
-          switch ($index) {
-            case 1:
-              ele = "Lenght";
-              break;
-            case 2:
-              ele = "Bust";
-              break;
-            case 3:
-              ele = "Waist";
-              break;
-            default:
-              break;
-          }
-          return ele;
+      tableColumn: [
+        {
+          key: "date",
+          prop: "date",
+          label: "日期",
+          align: "center",
         },
-      },
-      {
-        key: 3,
-        prop: "XS",
-        label: "XS",
-        align:"center"
-      },
-    ],
+        {
+          key: "name",
+          prop: "name",
+          label: "名字",
+        },
+        {
+          key: "address",
+          prop: "address",
+          label: "地址",
+          render: (scope) => {
+            const { $index, row = {} } = scope;
+            const { address } = row;
+            let ele = <div>{address}</div>;
+            return ele;
+          },
+        },
+      ],
+    multipleSelection: [], //表格选中项
+    total:0,
+    
+methods示例：
+
+    async getList(
+      params = {
+        page: Number(this.$route.query.page) || 1,
+        limit: Number(this.$route.query.limit) || 10,
+      }
+    ) {}
+
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
 
 安装：npm i general-basic-table<br/>
 install: npm i general-basic-table
