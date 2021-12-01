@@ -17,7 +17,12 @@
 ; }, }, ] */
 <template>
   <div>
-    <el-table :data="tableList" :size="size" v-bind="$attrs">
+    <el-table
+      :data="tableList"
+      :size="size"
+      v-on="version === 2 ? $listeners : {}"
+      v-bind="$attrs"
+    >
       <slot name="frontSlot" />
       <el-table-column
         v-for="column in tableColumn"
