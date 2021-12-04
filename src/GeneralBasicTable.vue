@@ -20,6 +20,7 @@
     <el-table
       :data="tableList"
       :size="size"
+      ref="queryTableRef"
       v-on="version === 2 ? $listeners : {}"
       v-bind="$attrs"
     >

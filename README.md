@@ -1,13 +1,3 @@
-<!--
- * @Author: 陈德立*******419287484@qq.com
- * @Date: 2021-07-19 10:56:51
- * @LastEditTime: 2021-11-22 18:07:04
- * @LastEditors: 陈德立*******419287484@qq.com
- * @Github: https://github.com/Alan1034
- * @Description: 
- * @FilePath: \GeneralBasicTable\README.md
- * 
--->
 # GeneralBasicTable
 
 一个兼容Vue2和Vue3的表格组件 <br/>
@@ -22,6 +12,7 @@
         noUrlParameters // 不接受和不改变url的参数
         border
         :style="{ width: '98%', marginBottom: 10 + 'px' }"
+        ref="generalBasicTable"
         @selection-change="handleSelectionChange" // 传入选择框以后的回调函数，传出一个val参数
         @row-dblclick="addModel" // 行双击后的回调函数，传出row, column, event参数
     >
@@ -99,6 +90,10 @@ methods示例：
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
+
+table提供ref调用：
+
+    this.$refs["generalBasicTable"].$refs["queryTableRef"]    
 
 安装：npm i general-basic-table<br/>
 install: npm i general-basic-table
