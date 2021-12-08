@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈德立*******419287484@qq.com
  * @Date: 2021-07-19 10:56:53
- * @LastEditTime: 2021-10-08 15:48:38
+ * @LastEditTime: 2021-12-08 14:29:27
  * @LastEditors: 陈德立*******419287484@qq.com
  * @Github: https://github.com/Alan1034
  * @Description:
@@ -63,14 +63,24 @@ export default {
       default: true,
     },
   },
+  data() {
+    return {
+      haveMounted: false, // 模板内容未生成的时候，分页参数会set一次导致触发查询，用这个来判断阻止这次查询
+    };
+  },
+  mounted() {
+    this.haveMounted = true;
+  },
   computed: {
     currentPage: {
       get() {
         return this.page;
       },
       set(val) {
-        this.$emit("update:page", val);
-        this.$emit("pagination", { page: val, limit: this.pageSize });
+        if (this.haveMounted) {
+          this.$emit("update:page", val);
+          this.$emit("pagination", { page: val, limit: this.pageSize });
+        }
         if (this.autoScroll) {
           window.scrollTo({
             top: 0,
@@ -84,8 +94,10 @@ export default {
         return this.limit;
       },
       set(val) {
-        this.$emit("update:limit", val);
-        this.$emit("pagination", { page: this.currentPage, limit: val });
+        if (this.haveMounted) {
+          this.$emit("update:limit", val);
+          this.$emit("pagination", { page: this.currentPage, limit: val });
+        }
         if (this.autoScroll) {
           window.scrollTo({
             top: 0,
