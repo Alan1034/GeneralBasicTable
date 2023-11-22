@@ -3,6 +3,7 @@
   "version": "2.0.0",
   "description": "",
   "main": "./dist/index.umd.cjs",
+  "type": "module",
   "scripts": {
     "build": "cross-env CURRENT_ENV=prod run-p type-check build-only",
     "test:e2e": "playwright test",
