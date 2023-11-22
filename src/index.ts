@@ -1,7 +1,7 @@
 /*
  * @Author: 陈德立*******419287484@qq.com
  * @Date: 2023-11-22 16:42:59
- * @LastEditTime: 2023-11-22 17:04:49
+ * @LastEditTime: 2023-11-22 18:21:18
  * @LastEditors: 陈德立*******419287484@qq.com
  * @Github: https://github.com/Alan1034
  * @Description: 
@@ -10,4 +10,4 @@
  */
 import GeneralBasicTable from './GeneralBasicTable.vue';
 
-export default { GeneralBasicTable }
+export const VGeneralBasicTable = GeneralBasicTable
