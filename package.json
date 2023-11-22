@@ -2,11 +2,14 @@
   "name": "general-basic-table",
   "version": "1.0.28",
   "description": "",
-  "main": "./src/index.js",
+  "main": "./dist/index.umd.cjs",
   "scripts": {
-    "serve": "webpack-dev-server --config config/webpack.dev.js",
-    "build": "webpack --config config/webpack.prod.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "cross-env CURRENT_ENV=prod run-p type-check build-only",
+    "test:e2e": "playwright test",
+    "build-only": "vite build",
+    "type-check": "tsc --noEmit -p tsconfig.json --composite false",
+    "link": "tsx script/link.ts && yarn link",
+    "unlink": "tsx script/unlink.ts && yarn unlink && run-p build"
   },
   "keywords": [
     "table",
@@ -24,9 +27,30 @@
     "url": "https://github.com/Alan1034/GeneralBasicTable.git"
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^7.14.0"
+    "@playwright/test": "^1.36.1",
+    "@types/node": "^20.8.10",
+    "@vitejs/plugin-legacy": "^4.1.1",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
+    "cross-env": "^7.0.3",
+    "less": "^4.2.0",
+    "chalk": "^2.4.2",
+    "npm-run-all": "^4.1.5",
+    "tsx": "^4.0.0",
+    "typescript": "^5.2.2",
+    "vite-plugin-image-optimizer": "^1.1.6"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "typings": "./dist/index.d.ts",
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    },
+    "./style": "./dist/style.css"
+  },
+  "files": [
+    "/dist"
+  ]
 }

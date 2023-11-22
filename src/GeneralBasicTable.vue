@@ -1,4 +1,4 @@
-/** 通用表格组件 使用方法：
+<!-- /** 通用表格组件 使用方法：
 <GeneralBasicTable
   :getList="getList"
   :tableList="tableList"
@@ -14,7 +14,7 @@
 }, { key: 4, prop: "name", label: "款式名称" },{ key: 99, label: "操作", render:
 (scope) => { const { name = "按钮" } = scope.row; return
 <ElButton>{name}</ElButton>
-; }, }, ] */
+; }, }, ] */ -->
 <template>
   <div>
     <el-table
@@ -97,7 +97,6 @@ export default {
     },
     size: {
       type: String,
-      default: () => "medium",
     },
     otherProps: {
       type: Object,
