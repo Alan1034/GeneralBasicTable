@@ -70,6 +70,8 @@
           render: (scope) => {
             const { $index, row = {} } = scope;
             const { address } = row;
+            // jsx语法依赖@vue/babel-plugin-jsx或@vitejs/plugin-vue-jsx，可能需要用到tsx文件（Vue3）
+            // 详见https://github.com/vuejs/babel-plugin-jsx，https://cn.vitejs.dev/plugins/
             let ele = <div>{address}</div>;
             return ele;
           },
@@ -77,7 +79,7 @@
       ],
     multipleSelection: [], //表格选中项
     total:0,
-    
+
 methods示例：
 
     async getList(
@@ -86,7 +88,7 @@ methods示例：
         limit: Number(this.$route.query.limit) || 10,
       }
     ) {}
-
+    
     handleSelectionChange(val) {
       this.multipleSelection = val;
     },
