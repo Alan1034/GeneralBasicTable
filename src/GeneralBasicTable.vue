@@ -68,6 +68,7 @@
 // import { ElTable, ElTableColumn } from "element-plus";
 import Pagination from "./components/Pagination.vue";
 import * as Vue from "vue";
+import { isVue2, isVue3 } from 'vue-demi'
 import TableColumn from "./components/TableColumn.js";
 
 export default {

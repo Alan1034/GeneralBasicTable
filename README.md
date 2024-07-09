@@ -3,7 +3,8 @@
 一个兼容Vue2和Vue3的表格组件 <br/>
 示例:
 
-    <GeneralBasicTable
+    import { VGeneralBasicTable } from "general-basic-table";
+    <VGeneralBasicTable
         size="mini"
         :getList="getList"
         :tableColumn="tableColumn"
@@ -21,7 +22,7 @@
         <el-table-column type="selection" width="55"> </el-table-column>
       </template>
         ...一些传入插槽的内容
-    </GeneralBasicTable>
+    </VGeneralBasicTable>
 
 支持所有element-plus element-ui Table 表格的原生属性
 

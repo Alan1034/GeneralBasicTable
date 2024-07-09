@@ -1,8 +1,6 @@
 import legacy from '@vitejs/plugin-legacy'
 import { fileURLToPath } from 'url'
-import { defineConfig, loadEnv, splitVendorChunkPlugin } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import vueJsx from '@vitejs/plugin-vue-jsx'
+import { defineConfig, loadEnv } from 'vite'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import path from 'path';
 const __filenameNew = fileURLToPath(import.meta.url)
@@ -33,16 +31,10 @@ export default defineConfig(({ command, mode }) => {
 
       extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
     },
-
+    optimizeDeps: {
+      exclude: ['vue-demi']
+    },
     plugins: [
-      /**
-       * @description: vite自带的文件分割配置
-       * @return {*}
-       */
-      {
-        ...splitVendorChunkPlugin(),
-        apply: 'build',
-      },
       /**
        * @description: 图片压缩插件
        * @return {*}
@@ -64,8 +56,6 @@ export default defineConfig(({ command, mode }) => {
         }),
         apply: 'build',
       },
-      vue(),
-      vueJsx(),
     ],
     css: {
       preprocessorOptions: {
@@ -92,13 +82,14 @@ export default defineConfig(({ command, mode }) => {
       },
       rollupOptions: {
         // 确保外部化处理那些你不想打包进库的依赖
-        external: ['vue', 'vue-router', "element-plus"],
+        external: ['vue', 'vue-router', "element-plus", "element-ui"],
         output: {
           // 在 UMD 构建模式下为这些外部化的依赖提供一个全局变量
           globals: {
             vue: 'Vue',
             'vue-router': 'vue-router',
             "element-plus": "element-plus",
+            "element-ui": "element-ui",
           },
         },
       },
