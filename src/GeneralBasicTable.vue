@@ -58,24 +58,21 @@
       :page.sync="pageNum"
       :limit.sync="pageSize"
       :total="total"
+      :size="size"
       @pagination="handleSearch"
+      v-bind="paginationAttrs"
     />
   </div>
 </template>
 
 <script>
-// import "element-plus/packages/theme-chalk/src/base.scss";
-// import { ElTable, ElTableColumn } from "element-plus";
 import Pagination from "./components/Pagination.vue";
 import * as Vue from "vue";
-import { isVue2, isVue3 } from 'vue-demi'
 import TableColumn from "./components/TableColumn.js";
 
 export default {
   name: "GeneralBasicTable",
   components: {
-    // ElTable,
-    // ElTableColumn,
     Pagination,
     TableColumn,
     TabArchive: (props) => {
@@ -111,6 +108,10 @@ export default {
       // 不接受和不改变url的参数
       type: Boolean,
       default: () => false,
+    },
+    paginationAttrs: {
+      type: Object,
+      default: () => {},
     },
   },
   data() {

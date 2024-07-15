@@ -1,5 +1,7 @@
 import legacy from '@vitejs/plugin-legacy'
 import { fileURLToPath } from 'url'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
 import { defineConfig, loadEnv } from 'vite'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import path from 'path';
@@ -56,6 +58,8 @@ export default defineConfig(({ command, mode }) => {
         }),
         apply: 'build',
       },
+      vue(),
+      vueJsx(),
     ],
     css: {
       preprocessorOptions: {
