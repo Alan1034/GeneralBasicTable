@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈德立*******419287484@qq.com
  * @Date: 2021-07-19 10:56:53
- * @LastEditTime: 2021-12-08 14:29:27
+ * @LastEditTime: 2024-07-15 18:49:46
  * @LastEditors: 陈德立*******419287484@qq.com
  * @Github: https://github.com/Alan1034
  * @Description:
@@ -19,9 +19,10 @@
       :layout="layout"
       :page-sizes="pageSizes"
       :total="total"
-      v-bind="$attrs"
+      :size="size"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
+      v-bind="$attrs"
     />
   </div>
 </template>
@@ -61,6 +62,9 @@ export default {
     autoScroll: {
       type: Boolean,
       default: true,
+    },
+    size: {
+      type: String,
     },
   },
   data() {
