@@ -16,6 +16,11 @@
         ref="generalBasicTable"
         @selection-change="handleSelectionChange" // 传入选择框以后的回调函数，传出一个val参数
         @row-dblclick="addModel" // 行双击后的回调函数，传出row, column, event参数
+        :paginationAttrs="{
+            size: device === 'mobile' ? 'small' : null,
+            layout:
+              device === 'mobile' ? 'prev, pager, next' : 'total, sizes, prev, pager, next, jumper'
+        }"
     >
      frontSlot插槽放在前面，默认在后面
      <template v-slot:frontSlot>
@@ -80,6 +85,7 @@
       ],
     multipleSelection: [], //表格选中项
     total:0,
+    paginationAttrs //el-pagination的屬性
 
 methods示例：
 
