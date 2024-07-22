@@ -17,27 +17,12 @@
 ; }, }, ] */ -->
 <template>
   <div>
-    <el-table
-      :data="tableList"
-      :size="size"
-      ref="queryTableRef"
-      v-on="version === 2 ? $listeners : {}"
-      v-bind="$attrs"
-    >
+    <el-table :data="tableList" :size="size" ref="queryTableRef" v-on="version === 2 ? $listeners : {}" v-bind="$attrs">
       <slot name="frontSlot" />
-      <el-table-column
-        v-for="column in tableColumn"
-        :key="column.key"
-        v-bind="column"
-      >
+      <el-table-column v-for="column in tableColumn" :key="column.key" v-bind="column">
         <template v-if="version === 3" #default="scope">
           <!-- 第一种方法，定义一个标签和一个组件 -->
-          <component
-            v-if="column.render"
-            :is="currentTabComponent(column, scope)"
-            :column="column"
-            :scope="scope"
-          />
+          <component v-if="column.render" :is="currentTabComponent(column, scope)" :column="column" :scope="scope" />
           <!-- 第二种方法，传入一个组件 -->
           <!-- <TableColumn :column="column" :scope="scope" /> -->
           <div v-else>{{ scope.row[column.prop] }}</div>
@@ -51,17 +36,8 @@
       <slot />
     </el-table>
     <!-- 兼容vue2的写法 -->
-    <Pagination
-      v-show="total > 0"
-      v-model:page="pageNum"
-      v-model:limit="pageSize"
-      :page.sync="pageNum"
-      :limit.sync="pageSize"
-      :total="total"
-      :size="size"
-      @pagination="handleSearch"
-      v-bind="paginationAttrs"
-    />
+    <Pagination v-show="total > 0" v-model:page="pageNum" v-model:limit="pageSize" :page.sync="pageNum"
+      :limit.sync="pageSize" :total="total" :size="size" @pagination="handleSearch" v-bind="paginationAttrs" />
   </div>
 </template>
 
@@ -98,11 +74,11 @@ export default {
     },
     otherProps: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
     getList: {
       type: Function,
-      default: () => {},
+      default: () => { },
     },
     noUrlParameters: {
       // 不接受和不改变url的参数
@@ -111,7 +87,7 @@ export default {
     },
     paginationAttrs: {
       type: Object,
-      default: () => {},
+      default: () => { },
     },
   },
   data() {
@@ -122,22 +98,22 @@ export default {
         : 10,
     };
   },
-  updated() {
-    // 如果在别的组件切换参数，把参数监听回data中
-    if (this.noUrlParameters) {
-      return;
-    }
-    if (
-      this.$route.query.page &&
-      this.pageNum !== Number(this.$route.query.page)
-    ) {
-      this.pageNum = Number(this.$route.query.page);
-    }
-    if (
-      this.$route.query.limit &&
-      this.pageSize !== Number(this.$route.query.limit)
-    ) {
-      this.pageSize = Number(this.$route.query.limit);
+  watch: {
+    "$route.query": function (val, oldVal) {
+      // 如果在别的组件切换参数，把参数监听回data中
+      if (this.noUrlParameters) {
+        return;
+      }
+      if (
+        val.page && this.pageNum !== Number(val.page)
+      ) {
+        this.pageNum = Number(val.page);
+      }
+      if (
+        val.limit && this.pageSize !== Number(val.limit)
+      ) {
+        this.pageSize = Number(val.limit);
+      }
     }
   },
   created() {

@@ -10,20 +10,9 @@
 -->
 <template>
   <div class="pagination-container">
-    <el-pagination
-      v-model:current-page="currentPage"
-      v-model:page-size="pageSize"
-      :current-page.sync="currentPage"
-      :page-size.sync="pageSize"
-      :background="background"
-      :layout="layout"
-      :page-sizes="pageSizes"
-      :total="total"
-      :size="size"
-      @size-change="handleSizeChange"
-      @current-change="handleCurrentChange"
-      v-bind="$attrs"
-    />
+    <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize" :current-page.sync="currentPage"
+      :page-size.sync="pageSize" :background="background" :layout="layout" :total="total" :size="size"
+      @size-change="handleSizeChange" @current-change="handleCurrentChange" v-bind="$attrs" />
   </div>
 </template>
 
@@ -44,12 +33,6 @@ export default {
     limit: {
       type: Number,
       default: 10,
-    },
-    pageSizes: {
-      type: Array,
-      default() {
-        return [10, 20, 30, 50];
-      },
     },
     layout: {
       type: String,
@@ -112,8 +95,8 @@ export default {
     },
   },
   methods: {
-    handleSizeChange(val) {},
-    handleCurrentChange(val) {},
+    handleSizeChange(val) { },
+    handleCurrentChange(val) { },
   },
 };
 </script>
