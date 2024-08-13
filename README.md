@@ -102,7 +102,7 @@ methods示例：
 
 table提供ref调用：
 
-    this.$refs["generalBasicTable"].$refs["queryTableRef"]    
+    this.$refs["VGeneralBasicTable"].$refs["queryTableRef"]    
 
 安装：npm i general-basic-table<br/>
 install: npm i general-basic-table
