@@ -13,7 +13,7 @@
         noUrlParameters // 不接受和不改变url的参数
         border
         :style="{ width: '98%', marginBottom: 10 + 'px' }"
-        ref="generalBasicTable"
+        ref="VGeneralBasicTable"
         @selection-change="handleSelectionChange" // 传入选择框以后的回调函数，传出一个val参数
         @row-dblclick="addModel" // 行双击后的回调函数，传出row, column, event参数
         :paginationAttrs="{
