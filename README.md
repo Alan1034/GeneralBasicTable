@@ -18,6 +18,7 @@
         @row-dblclick="addModel" // 行双击后的回调函数，传出row, column, event参数
         :paginationAttrs="{
             size: device === 'mobile' ? 'small' : null,
+            autoScroll:false,
             layout:
               device === 'mobile' ? 'prev, pager, next' : 'total, sizes, prev, pager, next, jumper'
         }"
