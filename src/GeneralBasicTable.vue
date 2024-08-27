@@ -117,13 +117,15 @@ export default {
     }
   },
   created() {
-    this.$router.push({
-      query: {
-        page: this.pageNum,
-        limit: this.pageSize,
-        ...this.$route?.query,
-      },
-    });
+    if (!this.noUrlParameters) {
+      this.$router.push({
+        query: {
+          page: this.pageNum,
+          limit: this.pageSize,
+          ...this.$route?.query,
+        },
+      });
+    }
   },
   methods: {
     /** 查询列表 */
