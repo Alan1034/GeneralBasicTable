@@ -85,7 +85,7 @@
         },
       ],
     multipleSelection: [], //表格选中项
-    total:0,
+    total:0,//total为0时不展示分页组件
     paginationAttrs //el-pagination的屬性
 
 methods示例：
