@@ -3,7 +3,10 @@
 一个兼容Vue2和Vue3的表格组件，支持typescript，vue2请使用@1版本，Vue3请使用@2版本 <br/>
 示例:
 
-    import { VGeneralBasicTable } from "general-basic-table";
+```
+import { VGeneralBasicTable } from "general-basic-table";
+```
+
     <VGeneralBasicTable
         size="mini"
         :getList="getList"
