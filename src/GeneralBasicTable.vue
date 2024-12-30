@@ -35,21 +35,20 @@
       </el-table-column>
       <slot />
     </el-table>
-    <!-- 兼容vue2的写法 -->
-    <Pagination v-show="total > 0" v-model:page="pageNum" v-model:limit="pageSize" :page.sync="pageNum"
-      :limit.sync="pageSize" :total="total" :size="size" @pagination="handleSearch" v-bind="paginationAttrs" />
+    <GeneralBasicPagination v-show="total > 0" :pageNumKey="pageNumKey" :pageSizeKey="pageSizeKey" :total="total"
+      :size="size" :paginationAttrs="paginationAttrs" :getList="getList" :noUrlParameters="noUrlParameters" />
   </div>
 </template>
 
 <script>
-import Pagination from "./components/Pagination.vue";
+
 import * as Vue from "vue";
 import TableColumn from "./components/TableColumn.js";
-
+import GeneralBasicPagination from "./GeneralBasicPagination.vue";
 export default {
   name: "GeneralBasicTable",
   components: {
-    Pagination,
+    GeneralBasicPagination,
     TableColumn,
     TabArchive: (props) => {
       const { column, scope } = props;
@@ -72,9 +71,13 @@ export default {
     size: {
       type: String,
     },
-    otherProps: {
-      type: Object,
-      default: () => { },
+    pageNumKey: {
+      type: String,
+      default: () => "page",
+    },
+    pageSizeKey: {
+      type: String,
+      default: () => "limit",
     },
     getList: {
       type: Function,
@@ -90,60 +93,7 @@ export default {
       default: () => { },
     },
   },
-  data() {
-    return {
-      pageNum: this.noUrlParameters ? Number(this.$route.query.page) || 1 : 1,
-      pageSize: this.noUrlParameters
-        ? Number(this.$route.query.limit) || 10
-        : 10,
-    };
-  },
-  watch: {
-    "$route.query": function (val, oldVal) {
-      // 如果在别的组件切换参数，把参数监听回data中
-      if (this.noUrlParameters) {
-        return;
-      }
-      if (
-        val.page && this.pageNum !== Number(val.page)
-      ) {
-        this.pageNum = Number(val.page);
-      }
-      if (
-        val.limit && this.pageSize !== Number(val.limit)
-      ) {
-        this.pageSize = Number(val.limit);
-      }
-    }
-  },
-  created() {
-    if (!this.noUrlParameters) {
-      this.$router.push({
-        query: {
-          page: this.pageNum,
-          limit: this.pageSize,
-          ...this.$route?.query,
-        },
-      });
-    }
-  },
   methods: {
-    /** 查询列表 */
-    handleSearch(params = { page: this.pageNum, limit: this.pageSize }) {
-      // const params = { page: this.pageNum, limit: this.pageSize };
-      let searchParams = {
-        ...params,
-      };
-      if (!this.noUrlParameters) {
-        searchParams = {
-          ...this.$route?.query,
-          ...params,
-        };
-        this.$router.push({ query: { ...searchParams } });
-      }
-
-      this.getList({ ...searchParams });
-    },
     currentTabComponent(column, scope) {
       return "tab-archive";
     },

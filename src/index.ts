@@ -11,3 +11,7 @@
 import GeneralBasicTable from './GeneralBasicTable.vue';
 
 export const VGeneralBasicTable = GeneralBasicTable
+
+import GeneralBasicPagination from './GeneralBasicPagination.vue';
+
+export const VGeneralBasicPagination = GeneralBasicPagination
