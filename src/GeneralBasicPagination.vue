@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈德立*******419287484@qq.com
  * @Date: 2021-07-19 10:56:53
- * @LastEditTime: 2024-12-30 11:32:07
+ * @LastEditTime: 2024-12-30 17:05:52
  * @LastEditors: 陈德立*******419287484@qq.com
  * @Github: https://github.com/Alan1034
  * @Description:
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-// import { ElPagination } from 'element-plus'
+import { ObjectStoreInUrl } from "network-spanner"
 export default {
   name: "GeneralBasicPagination",
   // components: { ElPagination },
@@ -82,11 +82,16 @@ export default {
   },
   created() {
     if (!this.noUrlParameters) {
-      this.$router.push({
-        query: {
+      const searchParams = ObjectStoreInUrl.paramsToQuery(
+        {
           [this.currentPageKey]: this.currentPage,
           [this.pageSizeKey]: this.pageSize,
           ...this.$route?.query,
+        }
+      );
+      this.$router.push({
+        query: {
+          ...searchParams,
         },
       });
     }
@@ -142,10 +147,12 @@ export default {
         ...params,
       };
       if (!this.noUrlParameters) {
-        searchParams = {
+       searchParams = ObjectStoreInUrl.paramsToQuery(
+        {
           ...this.$route?.query,
           ...params,
-        };
+        }
+      );
         this.$router.push({ query: { ...searchParams } });
       }
 
