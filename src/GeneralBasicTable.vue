@@ -36,7 +36,7 @@
       <slot />
     </el-table>
     <GeneralBasicPagination v-show="total > 0" :pageNumKey="pageNumKey" :pageSizeKey="pageSizeKey" :total="total"
-      :size="size" :paginationAttrs="paginationAttrs" :getList="getList" :noUrlParameters="noUrlParameters" />
+      :paginationAttrs="paginationAttrs" :getList="getList" :noUrlParameters="noUrlParameters" />
   </div>
 </template>
 

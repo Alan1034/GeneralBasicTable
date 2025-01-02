@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈德立*******419287484@qq.com
  * @Date: 2021-07-19 10:56:53
- * @LastEditTime: 2024-12-30 17:05:52
+ * @LastEditTime: 2025-01-02 17:49:57
  * @LastEditors: 陈德立*******419287484@qq.com
  * @Github: https://github.com/Alan1034
  * @Description:
@@ -11,8 +11,9 @@
 <template>
   <div class="pagination-container">
     <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize" :current-page.sync="currentPage"
-      :page-size.sync="pageSize" :background="background" :layout="layout" :total="total" :size="size"
-      @size-change="handleSizeChange" @current-change="handleCurrentChange" v-bind="paginationAttrs" />
+      :page-size.sync="pageSize" :background="background" :layout="layout" :total="total" 
+      @size-change="handleSizeChange" @current-change="handleCurrentChange"
+      v-bind="{ ...$attrs, ...paginationAttrs }" />
   </div>
 </template>
 
@@ -34,9 +35,6 @@ export default {
     pageSizeKey: {
       type: String,
       default: "limit",
-    },
-    size: {
-      type: String,
     },
     getList: {
       type: Function,
@@ -141,18 +139,17 @@ export default {
   methods: {
     handleSizeChange(val) { },
     handleCurrentChange(val) { },
-    handleSearch(params = { page: this.pageNum, limit: this.pageSize }) {
-      // const params = { page: this.pageNum, limit: this.pageSize };
+    handleSearch(params = { [this.currentPageKey]: this.pageNum, [this.pageSizeKey]: this.pageSize }) {
       let searchParams = {
         ...params,
       };
       if (!this.noUrlParameters) {
-       searchParams = ObjectStoreInUrl.paramsToQuery(
-        {
-          ...this.$route?.query,
-          ...params,
-        }
-      );
+        searchParams = ObjectStoreInUrl.paramsToQuery(
+          {
+            ...this.$route?.query,
+            ...params,
+          }
+        );
         this.$router.push({ query: { ...searchParams } });
       }
 

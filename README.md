@@ -108,5 +108,36 @@ table提供ref调用：
 
     this.$refs["VGeneralBasicTable"].$refs["queryTableRef"]    
 
+# GeneralBasicPagination
+
+GeneralBasicTable中使用的分页组件，可以单独引入使用
+
+示例：
+
+```
+import { VGeneralBasicPagination } from "general-basic-table";
+<VGeneralBasicPagination layout="total, prev, pager, next, jumper" noUrlParameters :getList="search"
+  :total="total" :defPageSize="4">
+</VGeneralBasicPagination>
+```
+
+支持所有element-plus element-ui Pagination 分页的原生属性
+
+数据示例:
+
+```
+total:0, //总条数
+currentPageKey:"page", //当前页数key
+pageSizeKey:"limit", //每页显示个数选择器的选项设置
+small：false, //是否使用小型分页样式
+getList:()=>{}, //切换分页调用的函数
+noUrlParameters:false, // 不接受和不改变url的参数
+defCurrentPage:1, //默认的页数
+defPageSize：10, //默认的每页显示个数
+layout:"total, sizes, prev, pager, next, jumper", //组件布局，子组件名用逗号分隔
+background:true, //是否为分页按钮添加背景色
+paginationAttrs //el-pagination的屬性，同$attrs，优先级比$attrs高
+```
+
 安装：npm i general-basic-table<br/>
 install: npm i general-basic-table
