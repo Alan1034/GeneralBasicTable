@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈德立*******419287484@qq.com
  * @Date: 2021-07-19 10:56:53
- * @LastEditTime: 2025-01-02 17:49:57
+ * @LastEditTime: 2025-01-09 10:01:17
  * @LastEditors: 陈德立*******419287484@qq.com
  * @Github: https://github.com/Alan1034
  * @Description:
@@ -11,7 +11,7 @@
 <template>
   <div class="pagination-container">
     <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize" :current-page.sync="currentPage"
-      :page-size.sync="pageSize" :background="background" :layout="layout" :total="total" 
+      :page-size.sync="pageSize" :background="background" :layout="layout" :total="total"
       @size-change="handleSizeChange" @current-change="handleCurrentChange"
       v-bind="{ ...$attrs, ...paginationAttrs }" />
   </div>
@@ -124,8 +124,12 @@ export default {
     },
     pageSize: {
       handler(val) {
-        this.currentPage = 1
-        // this.handleSearch({ [this.currentPageKey]: this.currentPage, [this.pageSizeKey]: val })
+        if (this.currentPage === 1) {
+          this.handleSearch({ [this.currentPageKey]: this.currentPage, [this.pageSizeKey]: val })
+        } else {
+          // 触发watch currentPage
+          this.currentPage = 1
+        }
         if (this.autoScroll) {
           window.scrollTo({
             top: 0,
