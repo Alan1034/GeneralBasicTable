@@ -72,10 +72,8 @@ export default {
   },
   data() {
     return {
-      currentPage: this.noUrlParameters ? Number(this.$route.query[this.currentPageKey]) || this.defCurrentPage : this.defCurrentPage,
-      pageSize: this.noUrlParameters
-        ? Number(this.$route.query[this.pageSizeKey]) || this.defPageSize
-        : this.defPageSize,
+      currentPage: this.noUrlParameters ? this.defCurrentPage : (Number(this.$route.query[this.currentPageKey]) || this.defCurrentPage),
+      pageSize: this.noUrlParameters ? this.defPageSize : (Number(this.$route.query[this.pageSizeKey]) || this.defPageSize),
     };
   },
   created() {
