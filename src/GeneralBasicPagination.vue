@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈德立*******419287484@qq.com
  * @Date: 2021-07-19 10:56:53
- * @LastEditTime: 2025-01-09 10:01:17
+ * @LastEditTime: 2025-01-26 17:21:03
  * @LastEditors: 陈德立*******419287484@qq.com
  * @Github: https://github.com/Alan1034
  * @Description:
@@ -19,6 +19,10 @@
 
 <script>
 import { ObjectStoreInUrl } from "network-spanner"
+import { utils } from "general-basic-form";
+import { Schemas, HandleTable } from "general-basic-indexdb"
+const {  getData } = HandleTable
+const { formSchema } = Schemas
 export default {
   name: "GeneralBasicPagination",
   // components: { ElPagination },
@@ -40,10 +44,9 @@ export default {
       type: Function,
       default: () => { },
     },
-    noUrlParameters: {
-      // 不接受和不改变url的参数
-      type: Boolean,
-      default: false,
+    parametersType: {
+      type: String,
+      default: "url",
     },
     defCurrentPage: {
       type: Number,
@@ -76,26 +79,28 @@ export default {
       pageSize: this.noUrlParameters ? this.defPageSize : (Number(this.$route.query[this.pageSizeKey]) || this.defPageSize),
     };
   },
-  created() {
-    if (!this.noUrlParameters) {
-      const searchParams = ObjectStoreInUrl.paramsToQuery(
-        {
-          [this.currentPageKey]: this.currentPage,
-          [this.pageSizeKey]: this.pageSize,
-          ...this.$route?.query,
-        }
-      );
-      this.$router.push({
-        query: {
-          ...searchParams,
-        },
-      });
+  async created() {
+    this.HandleParams({
+      [this.currentPageKey]: this.currentPage,
+      [this.pageSizeKey]: this.pageSize,
+    })
+  },
+  async updated() {
+    console.log("updated")
+    if (this.parametersType === "indexDB") {
+      const DBParams = await getData({
+        tableName: "formParams",
+        propertiesKey: this.$route.path || "defQueryParams",
+        primaryKey: "default",
+        mapDB: formSchema
+      })
+      console.log("updated DBParams", DBParams)
     }
   },
   watch: {
     "$route.query": function (val, oldVal) {
       // 如果在别的组件切换参数，把参数监听回data中
-      if (this.noUrlParameters) {
+      if (this.parametersType !== "url") {
         return;
       }
       if (
@@ -141,20 +146,17 @@ export default {
   methods: {
     handleSizeChange(val) { },
     handleCurrentChange(val) { },
-    handleSearch(params = { [this.currentPageKey]: this.pageNum, [this.pageSizeKey]: this.pageSize }) {
+    async HandleParams(params) {
+      const searchParams = await utils.makeParamsByType(params, this)
+      await utils.saveParamsByType(searchParams, this)
+      return searchParams
+    },
+    async handleSearch(params = { [this.currentPageKey]: this.pageNum, [this.pageSizeKey]: this.pageSize }) {
       let searchParams = {
         ...params,
       };
-      if (!this.noUrlParameters) {
-        searchParams = ObjectStoreInUrl.paramsToQuery(
-          {
-            ...this.$route?.query,
-            ...params,
-          }
-        );
-        this.$router.push({ query: { ...searchParams } });
-      }
 
+      searchParams = await this.HandleParams(searchParams);
       this.getList({ ...searchParams });
     },
   },

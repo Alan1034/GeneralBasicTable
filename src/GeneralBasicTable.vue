@@ -36,7 +36,7 @@
       <slot />
     </el-table>
     <GeneralBasicPagination v-show="total > 0" :pageNumKey="pageNumKey" :pageSizeKey="pageSizeKey" :total="total"
-      :paginationAttrs="paginationAttrs" :getList="getList" :noUrlParameters="noUrlParameters" />
+      :paginationAttrs="paginationAttrs" :getList="getList" :parametersType="parametersType" />
   </div>
 </template>
 
@@ -83,10 +83,9 @@ export default {
       type: Function,
       default: () => { },
     },
-    noUrlParameters: {
-      // 不接受和不改变url的参数
-      type: Boolean,
-      default: () => false,
+    parametersType: {
+      type: String,
+      default: "url",
     },
     paginationAttrs: {
       type: Object,
