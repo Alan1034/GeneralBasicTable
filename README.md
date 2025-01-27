@@ -123,6 +123,14 @@ import { VGeneralBasicPagination } from "general-basic-table";
 
 支持所有element-plus element-ui Pagination 分页的原生属性
 
+parametersType类型介绍
+
+| parametersType形式 | 支持页面刷新 | 参数改变引起路由跳转 | 组件间共享数据 | 存储上限 | 支持区分不同用户和路由 | 浏览器兼容性 |
+| ------------------ | ------------ | -------------------- | -------------- | -------- | ---------------------- | ------------ |
+| url                | 是           | 是                   | 是             | 中       | 否                     | 高           |
+| data               | 否           | 否                   | 否             | 高       | 否                     | 高           |
+| indexDB            | 是           | 否                   | 是             | 高       | 是                     | 中           |
+
 数据示例:
 
 ```
@@ -131,7 +139,8 @@ currentPageKey:"page", //当前页数key
 pageSizeKey:"limit", //每页显示个数选择器的选项设置
 small：false, //是否使用小型分页样式
 getList:()=>{}, //切换分页调用的函数
-noUrlParameters:false, // 不接受和不改变url的参数
+parametersType:"url" // 见parametersType类型介绍
+DBPrimaryKey：//[String, Number] indexDB的primaryKey，一般配合parametersType==="indexDB"使用
 defCurrentPage:1, //默认的页数
 defPageSize：10, //默认的每页显示个数
 layout:"total, sizes, prev, pager, next, jumper", //组件布局，子组件名用逗号分隔
