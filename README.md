@@ -13,7 +13,6 @@ import { VGeneralBasicTable } from "general-basic-table";
         :tableColumn="tableColumn"
         :tableList="tableList"
         :total="total"
-        noUrlParameters // 不接受和不改变url的参数
         border
         :style="{ width: '98%', marginBottom: 10 + 'px' }"
         ref="VGeneralBasicTable"
@@ -90,6 +89,8 @@ import { VGeneralBasicTable } from "general-basic-table";
     multipleSelection: [], //表格选中项
     total:0,//total为0时不展示分页组件
     paginationAttrs //el-pagination的屬性
+    parametersType:"url" // 见parametersType类型介绍
+    DBPrimaryKey：//[String, Number] indexDB的primaryKey，一般配合parametersType==="indexDB"使用
 
 methods示例：
 
@@ -116,7 +117,7 @@ GeneralBasicTable中使用的分页组件，可以单独引入使用
 
 ```
 import { VGeneralBasicPagination } from "general-basic-table";
-<VGeneralBasicPagination layout="total, prev, pager, next, jumper" noUrlParameters :getList="search"
+<VGeneralBasicPagination layout="total, prev, pager, next, jumper" :getList="search"
   :total="total" :defPageSize="4">
 </VGeneralBasicPagination>
 ```

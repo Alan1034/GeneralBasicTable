@@ -36,7 +36,8 @@
       <slot />
     </el-table>
     <GeneralBasicPagination v-show="total > 0" :pageNumKey="pageNumKey" :pageSizeKey="pageSizeKey" :total="total"
-      :paginationAttrs="paginationAttrs" :getList="getList" :parametersType="parametersType" />
+      :paginationAttrs="paginationAttrs" :getList="getList" :parametersType="parametersType"
+      :DBPrimaryKey="DBPrimaryKey" />
   </div>
 </template>
 
@@ -86,6 +87,10 @@ export default {
     parametersType: {
       type: String,
       default: "url",
+    },
+    DBPrimaryKey: {
+      type: [String, Number],
+      required: false,
     },
     paginationAttrs: {
       type: Object,
