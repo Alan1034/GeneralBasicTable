@@ -184,6 +184,7 @@ export default {
             primaryKey: this.DBPrimaryKey || "default",
             mapDB: formSchema
           }, (DBParams) => {
+            if (!DBParams?.[this.currentPageKey]) { return }
             this.currentPage = DBParams?.[this.currentPageKey]
           }
         )
@@ -204,6 +205,7 @@ export default {
             primaryKey: this.DBPrimaryKey || "default",
             mapDB: formSchema
           }, (DBParams) => {
+            if (!DBParams?.[this.pageSizeKey]) { return }
             this.pageSize = DBParams?.[this.pageSizeKey]
           }
         )
