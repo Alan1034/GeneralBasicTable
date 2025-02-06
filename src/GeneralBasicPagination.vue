@@ -1,7 +1,7 @@
 <!--
  * @Author: 陈德立*******419287484@qq.com
  * @Date: 2021-07-19 10:56:53
- * @LastEditTime: 2025-01-27 15:33:58
+ * @LastEditTime: 2025-02-06 19:36:01
  * @LastEditors: 陈德立*******419287484@qq.com
  * @Github: https://github.com/Alan1034
  * @Description:
@@ -112,6 +112,20 @@ export default {
     //   },
     //   immediate: true
     // },
+    total: {
+      handler(val) {
+        //element的一个BUG，见https://github.com/ElemeFE/element/issues/21858
+        if (this.currentPage === 1) {
+          return
+        }
+        const currentPage = this.currentPage
+        this.currentPage = 1
+        this.$nextTick(() => {
+          this.currentPage = currentPage
+        })
+
+      },
+    },
     // pageSize: {
     //   handler(val) {
     //     // if (this.currentPage === 1) {
