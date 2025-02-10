@@ -200,8 +200,10 @@ export default {
             primaryKey: this.DBPrimaryKey || "default",
             mapDB: formSchema
           }, (DBParams) => {
-            if (!DBParams?.[this.currentPageKey]) { return }
-            this.currentPage = DBParams?.[this.currentPageKey]
+            const currentPage = DBParams?.[this.currentPageKey]
+            if (currentPage) {
+              this.currentPage = currentPage
+            }
           }
         )
 
@@ -221,8 +223,10 @@ export default {
             primaryKey: this.DBPrimaryKey || "default",
             mapDB: formSchema
           }, (DBParams) => {
-            if (!DBParams?.[this.pageSizeKey]) { return }
-            this.pageSize = DBParams?.[this.pageSizeKey]
+            const pageSize = DBParams?.[this.pageSizeKey]
+            if (pageSize) {
+              this.pageSize = pageSize
+            }
           }
         )
       }
