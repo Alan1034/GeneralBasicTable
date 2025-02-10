@@ -174,15 +174,17 @@ export default {
       this.getList({ ...searchParams });
     },
     newData(val) {
+      const currentPage = val?.[this.currentPageKey]
       if (
-        val[this.currentPageKey] && this.currentPage !== Number(val[this.currentPageKey])
+        currentPage && this.currentPage !== Number(currentPage)
       ) {
-        this.currentPage = Number(val[this.currentPageKey]);
+        this.currentPage = Number(currentPage);
       }
+      const pageSize = val?.[this.pageSizeKey]
       if (
-        val[this.pageSizeKey] && this.pageSize !== Number(val[this.pageSizeKey])
+        pageSize && this.pageSize !== Number(pageSize)
       ) {
-        this.pageSize = Number(val[this.pageSizeKey]);
+        this.pageSize = Number(pageSize);
       }
     },
     initCurrentPage() {
