@@ -17,19 +17,12 @@
 ; }, }, ] */ -->
 <template>
   <div>
-    <el-table :data="tableList" :size="size" ref="queryTableRef" v-on="version === 2 ? $listeners : {}" v-bind="$attrs">
+    <el-table :data="tableList" :size="size" ref="queryTableRef" v-on="$listeners" v-bind="$attrs">
       <slot name="frontSlot" />
       <el-table-column v-for="column in tableColumn" :key="column.key" v-bind="column">
-        <template v-if="version === 3" #default="scope">
-          <!-- 第一种方法，定义一个标签和一个组件 -->
-          <component v-if="column.render" :is="currentTabComponent(column, scope)" :column="column" :scope="scope" />
-          <!-- 第二种方法，传入一个组件 -->
-          <!-- <TableColumn :column="column" :scope="scope" /> -->
-          <div v-else>{{ scope.row[column.prop] }}</div>
-        </template>
-        <template v-if="version === 2" slot-scope="scope">
+        <template slot-scope="scope">
           <!-- 兼容vue2的写法 -->
-          <TableColumn v-if="column.render" :column="column" :scope="scope" />
+          <TableColumn v-if="column.render" :renderFunction="column.render" :item="scope" />
           <div v-else>{{ scope.row[column.prop] }}</div>
         </template>
       </el-table-column>
@@ -42,9 +35,7 @@
 </template>
 
 <script>
-
-import * as Vue from "vue";
-import TableColumn from "./components/TableColumn.js";
+import { TableColumn } from "network-spanner"
 import GeneralBasicPagination from "./GeneralBasicPagination.vue";
 export default {
   name: "GeneralBasicTable",
@@ -100,13 +91,6 @@ export default {
   methods: {
     currentTabComponent(column, scope) {
       return "tab-archive";
-    },
-  },
-  computed: {
-    version() {
-      return Vue.default
-        ? Number(Vue.default.version.split(".")[0])
-        : Number(Vue.version.split(".")[0]);
     },
   },
 };
