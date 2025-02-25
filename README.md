@@ -32,7 +32,7 @@
 
 支持所有element-plus element-ui Table 表格的原生属性
 
-![image](https://raw.githubusercontent.com/Alan1034/PicturesServer/main/PicGo_imgs/202108231121814.png?token=AICSKHTT6CTUIOLWOWTTICTBEMNFK)
+![image](https://raw.githubusercontent.com/Alan1034/PicturesServer/main/PicGo_imgs/202108231121814.png)
 
 数据示例:
 
