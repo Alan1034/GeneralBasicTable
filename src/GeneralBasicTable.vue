@@ -28,7 +28,7 @@
       </el-table-column>
       <slot />
     </el-table>
-    <GeneralBasicPagination v-show="total > 0" :pageNumKey="pageNumKey" :pageSizeKey="pageSizeKey" :total="total"
+    <GeneralBasicPagination v-show="total > 0" :currentPageKey="pageNumKey" :pageSizeKey="pageSizeKey" :total="total"
       :paginationAttrs="paginationAttrs" :getList="getList" :parametersType="parametersType"
       :DBPrimaryKey="DBPrimaryKey" />
   </div>
