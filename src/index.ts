@@ -10,7 +10,7 @@
  */
 
 import { SUGeneralBasicTable } from "./SUGeneralBasicTable";
-import { XUSGeneralBasicTable } from "./XUSGeneralBasicTable";
+import { BasicTable } from "./components/BasicTable";
 
 export const RSUGeneralBasicTable = SUGeneralBasicTable;
-export const RXUSGeneralBasicTable = XUSGeneralBasicTable;
+export const RBasicTable = BasicTable;
