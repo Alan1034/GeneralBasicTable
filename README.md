@@ -1,36 +1,23 @@
+<!-- @format -->
+
 # GeneralBasicTable
 
-一个兼容Vue2和Vue3的表格组件，支持typescript，vue2请使用@1版本，Vue3请使用@2版本 <br/>
+一个兼容 Vue2 和 Vue3 和react 的表格组件，支持 typescript，vue2 请使用@1 版本，Vue3 请使用@2 版本，react请使用@3版本 <br/>
 
 示例:
 
-    import { VGeneralBasicTable } from "general-basic-table";
-    <VGeneralBasicTable
-        size="mini"
-        :getList="getList"
-        :tableColumn="tableColumn"
-        :tableList="tableList"
-        :total="total"
-        noUrlParameters // 不接受和不改变url的参数
-        border
-        :style="{ width: '98%', marginBottom: 10 + 'px' }"
-        ref="generalBasicTable"
-        @selection-change="handleSelectionChange" // 传入选择框以后的回调函数，传出一个val参数
-        @row-dblclick="addModel" // 行双击后的回调函数，传出row, column, event参数
-        :paginationAttrs="{
-            size: device === 'mobile' ? 'small' : null,
-            layout:
-              device === 'mobile' ? 'prev, pager, next' : 'total, sizes, prev, pager, next, jumper'
-        }"
-    >
-     frontSlot插槽放在前面，默认在后面
-     <template v-slot:frontSlot>
-        <el-table-column type="selection" width="55"> </el-table-column>
-      </template>
-        ...一些传入插槽的内容
-    </VGeneralBasicTable>
+    import { RBasicTable,RSUGeneralBasicTable } from "general-basic-table";
+    <RBasicTable
+                    coms={{ Table, TableBody, TableCell, TableHead, TableHeader, TableRow }}
+                    tableList={tableList}
+                    tableColumn={tableColumn}
+                  ></RBasicTable>
 
-支持所有element-plus element-ui Table 表格的原生属性
+
+                  <RSUGeneralBasicTable
+                    tableList={tableList}
+                    tableColumn={tableColumn}
+                  ></RSUGeneralBasicTable>
 
 ![image](https://raw.githubusercontent.com/Alan1034/PicturesServer/main/PicGo_imgs/202108231121814.png)
 
@@ -84,26 +71,9 @@
           },
         },
       ],
-    multipleSelection: [], //表格选中项
-    total:0, //total为0时不展示分页组件
-    paginationAttrs //el-pagination的屬性
 
-methods示例：
 
-    async getList(
-      params = {
-        page: Number(this.$route.query.page) || 1,
-        limit: Number(this.$route.query.limit) || 10,
-      }
-    ) {}
-    
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
 
-table提供ref调用：
-
-    this.$refs["generalBasicTable"].$refs["queryTableRef"]    
 
 安装：npm i general-basic-table<br/>
 install: npm i general-basic-table
