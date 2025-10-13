@@ -61,14 +61,10 @@
           key: "address",
           prop: "address",
           label: "地址",
-          render: (scope) => {
-            const { $index, row = {} } = scope;
-            const { address } = row;
-            // jsx语法依赖@vue/babel-plugin-jsx或@vitejs/plugin-vue-jsx，可能需要用到tsx文件（Vue3）
-            // 详见https://github.com/vuejs/babel-plugin-jsx，https://cn.vitejs.dev/plugins/
-            let ele = <div>{address}</div>;
-            return ele;
-          },
+ render: (scope, column, index) => {
+        let ele = <div>{scope[column.prop]}</div>;
+        return ele;
+      },
         },
       ],
 
