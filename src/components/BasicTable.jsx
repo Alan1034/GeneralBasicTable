@@ -36,7 +36,7 @@ export const BasicTable = (props) => {
           return (
             <TableRow key={JSON.stringify(scope)}>
               {tableColumn.map((column) => {
-                columnProps = { ...column };
+                const columnProps = { ...column };
                 delete columnProps.key;
                 if (column.render) {
                   return (
