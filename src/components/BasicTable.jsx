@@ -36,16 +36,19 @@ export const BasicTable = (props) => {
           return (
             <TableRow key={JSON.stringify(scope)}>
               {tableColumn.map((column) => {
-                console.log(column)
+                columnProps = { ...column };
+                delete columnProps.key;
                 if (column.render) {
                   return (
-                    <TableCell key={column.key} {...column}>
+                    <TableCell key={column.key} {...columnProps}>
                       {column.render(scope, column, index)}
                     </TableCell>
                   );
                 } else {
                   return (
-                    <TableCell key={column.key}>{scope[column.prop]}</TableCell>
+                    <TableCell key={column.key} {...columnProps}>
+                      {scope[column.prop]}
+                    </TableCell>
                   );
                 }
               })}
