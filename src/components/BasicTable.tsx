@@ -38,6 +38,9 @@ export const BasicTable = (props) => {
               {tableColumn.map((column) => {
                 const columnProps = { ...column };
                 delete columnProps.key;
+                delete columnProps.label;
+                delete columnProps.prop;
+                delete columnProps.render;
                 if (column.render) {
                   return (
                     <TableCell key={column.key} {...columnProps}>

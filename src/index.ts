@@ -11,6 +11,10 @@
 
 import { SUGeneralBasicTable } from "./SUGeneralBasicTable";
 import { BasicTable } from "./components/BasicTable";
+import { SUGeneralBasicPagination } from "./SUGeneralBasicPagination";
+import { BasicPagination } from "./components/BasicPagination";
 
 export const RSUGeneralBasicTable = SUGeneralBasicTable;
 export const RBasicTable = BasicTable;
+export const RSUGeneralBasicPagination = SUGeneralBasicPagination;
+export const RBasicPagination = BasicPagination;
