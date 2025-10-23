@@ -68,8 +68,61 @@
         },
       ],
 
+import { RBasicTable, RSUGeneralBasicTable, RSUGeneralBasicPagination, RBasicPagination } from 'general-basic-table';
 
+  const getList = async (
+    params = {
+      page: 1,
+      pageSize: 5,
+    }
+  ) => {
+    const response = await getList_({ ...params });
+    if (response.status === 'ok') {
+      setTotal(response.totalCount);
+      setTableList(response.data);
+    }
+  };
 
+      <RBasicPagination  hideOnSinglePage getList={getIntendedPackageList} total={total} defPageSize={5} />
+
+      <RBasicPagination
+        coms={{
+          Pagination,
+          PaginationContent,
+          PaginationEllipsis,
+          PaginationItem,
+          PaginationLink,
+          PaginationNext,
+          PaginationPrevious,
+        }}
+        hideOnSinglePage
+        getList={getIntendedPackageList}
+        total={total}
+        defPageSize={5}
+      />
+
+parametersType类型介绍
+
+| parametersType形式 | 支持页面刷新 | 参数改变引起路由跳转 | 组件间共享数据 | 存储上限 | 支持区分不同用户和路由 | 浏览器兼容性 |
+| ------------------ | ------------ | -------------------- | -------------- | -------- | ---------------------- | ------------ |
+| url                | 是           | 是                   | 是             | 中       | 否                     | 高           |
+| data               | 否           | 否                   | 否             | 高       | 否                     | 高           |
+| indexDB            | 是           | 否                   | 是             | 高       | 是                     | 中           |
+
+数据示例:
+
+```
+total:0, //总条数
+currentPageKey:"page", //当前页数key
+pageSizeKey:"limit", //每页显示个数选择器的选项设置
+small：false, //是否使用小型分页样式
+getList:()=>{}, //切换分页调用的函数
+parametersType:"url" // 见parametersType类型介绍
+DBPrimaryKey：//[String, Number] indexDB的primaryKey，一般配合parametersType==="indexDB"使用
+defCurrentPage:1, //默认的页数
+defPageSize：10, //默认的每页显示个数
+hideOnSinglePage:false, //当只有一页时是否隐藏分页器
+paginationAttrs //Pagination组件的屬性
 
 安装：npm i general-basic-table<br/>
 install: npm i general-basic-table

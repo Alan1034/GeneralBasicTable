@@ -69,7 +69,7 @@
     "clsx": "^2.1.1",
     "general-basic-indexdb": "^1.0.4",
     "lucide-react": "^0.545.0",
-    "network-spanner": "^1.2.17",
+    "network-spanner": "1.2.18",
     "tailwind-merge": "^3.3.1"
   }
 }

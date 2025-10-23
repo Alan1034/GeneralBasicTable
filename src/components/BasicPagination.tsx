@@ -1,5 +1,5 @@
 import { Schemas, HandleTable } from "general-basic-indexdb"
-import { HandleParamsData } from "network-spanner"
+import { HandleParamsData, ObjectStoreInUrl } from "network-spanner"
 const { getData } = HandleTable
 const { formSchema } = Schemas
 import { useState, useEffect } from 'react';
@@ -7,7 +7,7 @@ export const BasicPagination = (props) => {
   const {
     // tableList = [],
     // tableColumn = [],
-    total = 180,
+    total = 0,
     // size = "",
     currentPageKey = "page",
     pageSizeKey = "pageSize",
@@ -19,6 +19,7 @@ export const BasicPagination = (props) => {
     autoScroll = true,
     getList = () => { },
     paginationAttrs = {},
+    hideOnSinglePage = false,
     coms: { Pagination,
       PaginationContent,
       PaginationEllipsis,
@@ -28,8 +29,53 @@ export const BasicPagination = (props) => {
       PaginationPrevious,
       PaginationWidget },
   } = props;
-  const [currentPage, setCurrentPage] = useState(defCurrentPage);
-  const [pageSize, setPageSize] = useState(defPageSize);
+  const initCurrentPage = () => {
+    let initDefCurrentPage = defCurrentPage
+    if (parametersType === "url") {
+      initDefCurrentPage = Number(ObjectStoreInUrl.getURLParameter({ decode: true })?.[currentPageKey]) || defCurrentPage
+    }
+    if (parametersType === "indexDB") {
+      getData(
+        {
+          tableName: "formParams",
+          propertiesKey: window.location.pathname || "defQueryParams",
+          primaryKey: DBPrimaryKey || "default",
+          mapDB: formSchema
+        }, (DBParams) => {
+          const currentPage = DBParams?.[currentPageKey]
+          if (currentPage) {
+            setCurrentPage(currentPage);
+          }
+        }
+      )
+
+    }
+    return initDefCurrentPage
+  }
+  const initPageSize = () => {
+    let initDefPageSize = defPageSize
+    if (parametersType === "url") {
+      initDefPageSize = Number(ObjectStoreInUrl.getURLParameter({ decode: true })?.[pageSizeKey]) || defPageSize
+    }
+    if (parametersType === "indexDB") {
+      getData(
+        {
+          tableName: "formParams",
+          propertiesKey: window.location.pathname || "defQueryParams",
+          primaryKey: DBPrimaryKey || "default",
+          mapDB: formSchema
+        }, (DBParams) => {
+          const pageSize = DBParams?.[pageSizeKey]
+          if (pageSize) {
+            setPageSize(pageSize)
+          }
+        }
+      )
+    }
+    return initDefPageSize
+  }
+  const [currentPage, setCurrentPage] = useState(initCurrentPage());
+  const [pageSize, setPageSize] = useState(initPageSize());
   const [paginationList, setPaginationList] = useState([]);
   useEffect(() => {
     let rawlist = Array.from({ length: Math.ceil(total / pageSize) }, (_, i) => i + 1)
@@ -82,16 +128,19 @@ export const BasicPagination = (props) => {
     };
 
     searchParams = await handleParams(searchParams);
+    console.log(searchParams)
     getList({ ...searchParams });
   }
   const handleCurrentChange = (val) => {
+    console.log("handleCurrentChange", val)
     if (val < 1) {
       return
     }
-    if (val > Math.round((total / pageSize) * 100) / 100) {
+    if (val > Math.ceil(total / pageSize)) {
       return
     }
     setCurrentPage(val);
+    console.log("searchParams")
     handleSearch({ [currentPageKey]: val, [pageSizeKey]: pageSize })
     if (autoScroll) {
       window.scrollTo({
@@ -102,30 +151,31 @@ export const BasicPagination = (props) => {
   }
 
   return (
-    PaginationWidget ?
-      <PaginationWidget page={currentPage} totalPages={total} onChange={(page) => handleCurrentChange(page)}{...paginationAttrs} ></PaginationWidget> :
-      (<Pagination {...paginationAttrs}>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious onClick={() => handleCurrentChange(currentPage - 1)} />
-          </PaginationItem>
-          {paginationList.map((item, index) => {
- 
-            return (
-              (item === -1) ? (
-                <PaginationItem key={index}>
-                  <PaginationEllipsis />
-                </PaginationItem>) : (
-                <PaginationItem key={index}>
-                  <PaginationLink isActive={item === currentPage} onClick={() => handleCurrentChange(item)}>{item}</PaginationLink>
-                </PaginationItem>
+    hideOnSinglePage && total == 0 ? [] :
+      PaginationWidget ?
+        <PaginationWidget page={currentPage} totalPages={total} onChange={(page) => handleCurrentChange(page)}{...paginationAttrs} ></PaginationWidget> :
+        (<Pagination {...paginationAttrs}>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious onClick={() => handleCurrentChange(currentPage - 1)} />
+            </PaginationItem>
+            {paginationList.map((item, index) => {
+
+              return (
+                (item === -1) ? (
+                  <PaginationItem key={index}>
+                    <PaginationEllipsis />
+                  </PaginationItem>) : (
+                  <PaginationItem key={index}>
+                    <PaginationLink isActive={item === currentPage} onClick={() => handleCurrentChange(item)}>{item}</PaginationLink>
+                  </PaginationItem>
+                )
               )
-            )
-          })}
-          <PaginationItem>
-            <PaginationNext onClick={() => handleCurrentChange(currentPage + 1)} />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>)
+            })}
+            <PaginationItem>
+              <PaginationNext onClick={() => handleCurrentChange(currentPage + 1)} />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>)
   )
 }
