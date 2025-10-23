@@ -2,7 +2,7 @@
   "name": "general-basic-table",
   "version": "3.0.4",
   "description": "",
-  "main": "./src/index.ts",
+  "main": "./dist/index.umd.cjs",
   "type": "module",
   "scripts": {
     "build": "cross-env CURRENT_ENV=prod run-p type-check && run-p build-only",
@@ -61,15 +61,27 @@
   "peerDependencies": {
     "react": ">=19.0.0"
   },
-  "typings": "./publish/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
     "@tanstack/react-table": "^8.21.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "general-basic-indexdb": "^1.0.4",
+    "general-basic-indexdb": "^1.0.5",
     "lucide-react": "^0.545.0",
-    "network-spanner": "1.2.18",
+    "network-spanner": "1.2.19",
     "tailwind-merge": "^3.3.1"
-  }
+  },
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.cjs"
+    },
+    "./style": "./dist/index.css"
+  },
+  "files": [
+    "/dist"
+  ]
 }

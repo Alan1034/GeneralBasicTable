@@ -7,19 +7,19 @@
 //   getPaginationRowModel,
 //   useReactTable,
 // } from "@tanstack/react-table";
-import { useState } from "react";
+// import { useState } from "react";
 export const BasicTable = (props) => {
   const {
     tableList = [],
     tableColumn = [],
-    total = 0,
-    size = "",
-    pageNumKey = "page",
-    pageSizeKey = "pageSize",
-    parametersType = "url",
-    DBPrimaryKey = "false",
-    getList = () => {},
-    paginationAttrs = {},
+    // total = 0,
+    // size = "",
+    // pageNumKey = "page",
+    // pageSizeKey = "pageSize",
+    // parametersType = "url",
+    // DBPrimaryKey = "false",
+    // getList = () => {},
+    // paginationAttrs = {},
     coms: { Table, TableBody, TableCell, TableHead, TableHeader, TableRow },
   } = props;
   return (
