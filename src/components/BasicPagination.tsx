@@ -3,7 +3,32 @@ import { HandleParamsData, ObjectStoreInUrl } from "network-spanner"
 const { getData } = HandleTable
 const { formSchema } = Schemas
 import { useState, useEffect } from 'react';
-export const BasicPagination = (props) => {
+const defProps = {
+  total: 0,
+  currentPageKey: "page",
+  pageSizeKey: "pageSize",
+  parametersType: "url",
+  defCurrentPage: 1,
+  DBPrimaryKey: null,
+  defPageSize: 10,
+  breakLength: 7,
+  autoScroll: true,
+  getList: () => { },
+  paginationAttrs: {},
+  hideOnSinglePage: false,
+  coms: {
+    Pagination: [],
+    PaginationContent: [],
+    PaginationEllipsis: [],
+    PaginationItem: [],
+    PaginationLink: [],
+    PaginationNext: [],
+    PaginationPrevious: [],
+    PaginationWidget: []
+  }
+}
+export const BasicPagination = (prop) => {
+  const props = { ...defProps, ...prop };
   const {
     // tableList = [],
     // tableColumn = [],
@@ -118,7 +143,6 @@ export const BasicPagination = (props) => {
   }, [total, pageSize, currentPage])
   const handleParams = async (params) => {
     const searchParams = await HandleParamsData.makeParamsByType(params, props)
-
     await HandleParamsData.saveParamsByType(searchParams, props)
     return searchParams
   }
@@ -128,11 +152,9 @@ export const BasicPagination = (props) => {
     };
 
     searchParams = await handleParams(searchParams);
-    console.log(searchParams)
     getList({ ...searchParams });
   }
   const handleCurrentChange = (val) => {
-    console.log("handleCurrentChange", val)
     if (val < 1) {
       return
     }
@@ -140,7 +162,6 @@ export const BasicPagination = (props) => {
       return
     }
     setCurrentPage(val);
-    console.log("searchParams")
     handleSearch({ [currentPageKey]: val, [pageSizeKey]: pageSize })
     if (autoScroll) {
       window.scrollTo({
@@ -151,7 +172,7 @@ export const BasicPagination = (props) => {
   }
 
   return (
-    hideOnSinglePage && total == 0 ? [] :
+    hideOnSinglePage && (total / pageSize) < 1 ? [] :
       PaginationWidget ?
         <PaginationWidget page={currentPage} totalPages={total} onChange={(page) => handleCurrentChange(page)}{...paginationAttrs} ></PaginationWidget> :
         (<Pagination {...paginationAttrs}>

@@ -68,12 +68,59 @@
         },
       ],
 
+ 多行TableRow示例
+
+  const tableColumn = [
+    {
+      key: 'code',
+      prop: 'code',
+      label: '套餐等级',
+      // align: 'center',
+    },
+    {
+      key: 'name',
+      prop: 'name',
+      label: '套餐名称',
+    },
+    {
+      key: 'handle',
+      prop: 'handle',
+      label: '处理',
+      render: (scope, column, index) => {
+        let ele = <div>{scope[column.prop]}</div>;
+        return ele;
+      },
+    },
+  ];
+  const expandColumn = [
+    {
+      key: 'expand',
+      prop: 'expand',
+      label: '展开',
+      colSpan: tableColumn.length,
+      render: (scope, column, index) => {
+        let ele = <PackageDetail></PackageDetail>;
+        return ele;
+      },
+    },
+  ];
+  const tableTableRows = [tableColumn, expandColumn];
+
+      <RBasicTable
+        coms={{ Table, TableBody, TableCell, TableHead, TableHeader, TableRow }}
+        tableList={tableList}
+        tableColumn={tableColumn}
+        tableTableRows={tableTableRows}
+      ></RBasicTable>
+
+
 import { RBasicTable, RSUGeneralBasicTable, RSUGeneralBasicPagination, RBasicPagination } from 'general-basic-table';
+import { ObjectStoreInUrl } from 'network-spanner';
 
   const getList = async (
-    params = {
-      page: 1,
-      pageSize: 5,
+  params = {
+      page: ObjectStoreInUrl.getURLParameter({ decode: true }).page || 1,
+      pageSize: ObjectStoreInUrl.getURLParameter({ decode: true }).pageSize ||5,
     }
   ) => {
     const response = await getList_({ ...params });

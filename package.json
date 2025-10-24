@@ -69,7 +69,7 @@
     "clsx": "^2.1.1",
     "general-basic-indexdb": "^1.0.5",
     "lucide-react": "^0.545.0",
-    "network-spanner": "1.2.19",
+    "network-spanner": "1.2.20",
     "tailwind-merge": "^3.3.1"
   },
   "module": "./dist/index.js",

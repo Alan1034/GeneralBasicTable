@@ -12,13 +12,13 @@ export const BasicTable = (props) => {
   const {
     tableList = [],
     tableColumn = [],
+    tableTableRows = [tableColumn],
     // total = 0,
     // size = "",
     // pageNumKey = "page",
     // pageSizeKey = "pageSize",
     // parametersType = "url",
     // DBPrimaryKey = "false",
-    // getList = () => {},
     // paginationAttrs = {},
     coms: { Table, TableBody, TableCell, TableHead, TableHeader, TableRow },
   } = props;
@@ -34,29 +34,36 @@ export const BasicTable = (props) => {
       <TableBody>
         {tableList.map((scope, index) => {
           return (
-            <TableRow key={JSON.stringify(scope)}>
-              {tableColumn.map((column) => {
-                const columnProps = { ...column };
-                delete columnProps.key;
-                delete columnProps.label;
-                delete columnProps.prop;
-                delete columnProps.render;
-                if (column.render) {
-                  return (
-                    <TableCell key={column.key} {...columnProps}>
-                      {column.render(scope, column, index)}
-                    </TableCell>
-                  );
-                } else {
-                  return (
-                    <TableCell key={column.key} {...columnProps}>
-                      {scope[column.prop]}
-                    </TableCell>
-                  );
-                }
-              })}
-            </TableRow>
-          );
+            tableTableRows.map((row = tableColumn, rowIndex) => {
+              return (
+                <TableRow key={JSON.stringify(scope) + rowIndex}>
+                  {row.map((column) => {
+                    const columnProps = { ...column };
+                    delete columnProps.key;
+                    delete columnProps.label;
+                    delete columnProps.prop;
+                    delete columnProps.render;
+                    if (column.render) {
+                      return (
+                        <TableCell key={column.key} {...columnProps}>
+                          {column.render(scope, column, index)}
+                        </TableCell>
+                      );
+                    } else {
+                      return (
+                        <TableCell key={column.key} {...columnProps}>
+                          {scope[column.prop]}
+                        </TableCell>
+                      );
+                    }
+                  })}
+
+                </TableRow>
+              )
+            }
+
+
+            ));
         })}
       </TableBody>
     </Table>
