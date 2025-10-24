@@ -13,6 +13,7 @@ export const BasicTable = (props) => {
     tableList = [],
     tableColumn = [],
     tableTableRows = [tableColumn],
+    children,
     // total = 0,
     // size = "",
     // pageNumKey = "page",
@@ -65,6 +66,7 @@ export const BasicTable = (props) => {
 
             ));
         })}
+        {children}
       </TableBody>
     </Table>
   );
