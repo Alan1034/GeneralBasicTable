@@ -170,6 +170,7 @@ defCurrentPage:1, //默认的页数
 defPageSize：10, //默认的每页显示个数
 hideOnSinglePage:false, //当只有一页时是否隐藏分页器
 paginationAttrs //Pagination组件的屬性
+tableTableRows:[tableColumn,[...第二行的tableColumn]] //每条数据生成多行
 
 安装：npm i general-basic-table<br/>
 install: npm i general-basic-table
