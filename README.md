@@ -61,6 +61,7 @@
           key: "address",
           prop: "address",
           label: "地址",
+          className: 'p-0',
  render: (scope, column, index) => {
         let ele = <div>{scope[column.prop]}</div>;
         return ele;
