@@ -143,15 +143,16 @@ export const BasicPagination = (prop) => {
   }, [total, pageSize, currentPage])
   const handleParams = async (params) => {
     const searchParams = await HandleParamsData.makeParamsByType(params, props)
-    await HandleParamsData.saveParamsByType(searchParams, props)
-    return searchParams
+    const action = await HandleParamsData.saveParamsByType(searchParams, props)
+    return { searchParams, action }
   }
   const handleSearch = async (params = { [currentPageKey]: currentPage, [pageSizeKey]: pageSize }) => {
-    let searchParams = {
+    const { searchParams, action } = await handleParams({
       ...params,
-    };
-
-    searchParams = await handleParams(searchParams);
+    });
+    if (action === "link") {
+      return;
+    }
     getList({ ...searchParams });
   }
   const handleCurrentChange = (val) => {
