@@ -39,11 +39,14 @@ export const BasicPagination = (prop) => {
     parametersType = "url",
     DBPrimaryKey,
     defCurrentPage = 1,
+    page = 1,
     defPageSize = 10,
     breakLength = 7,
     autoScroll = true,
     getList = () => { },
     paginationAttrs = {},
+    paginationPreviousAttrs = {},
+    paginationNextAttrs = {},
     hideOnSinglePage = false,
     coms: { Pagination,
       PaginationContent,
@@ -66,10 +69,20 @@ export const BasicPagination = (prop) => {
           propertiesKey: window.location.pathname || "defQueryParams",
           primaryKey: DBPrimaryKey || "default",
           mapDB: formSchema
-        }, (DBParams) => {
+        }, async (DBParams) => {
           const currentPage = DBParams?.[currentPageKey]
           if (currentPage) {
-            setCurrentPage(currentPage);
+            let timer;
+            await new Promise<void>((resolve, reject) => {
+              timer = setInterval(async () => {
+                if (setCurrentPage) {
+                  setCurrentPage(currentPage);
+                  resolve();
+                }
+              }, 300);
+            })
+            clearInterval(timer);
+
           }
         }
       )
@@ -141,6 +154,12 @@ export const BasicPagination = (prop) => {
 
     setPaginationList(rawlist)
   }, [total, pageSize, currentPage])
+  useEffect(() => {
+    if (currentPage !== page) {
+      handleCurrentChange(page)
+    }
+
+  }, [page])
   const handleParams = async (params) => {
     const searchParams = await HandleParamsData.makeParamsByType(params, props)
     const action = await HandleParamsData.saveParamsByType(searchParams, props)
@@ -179,7 +198,7 @@ export const BasicPagination = (prop) => {
         (<Pagination {...paginationAttrs}>
           <PaginationContent>
             <PaginationItem>
-              <PaginationPrevious onClick={() => handleCurrentChange(currentPage - 1)} />
+              <PaginationPrevious onClick={() => handleCurrentChange(currentPage - 1)} {...paginationPreviousAttrs} />
             </PaginationItem>
             {paginationList.map((item, index) => {
 
@@ -195,7 +214,7 @@ export const BasicPagination = (prop) => {
               )
             })}
             <PaginationItem>
-              <PaginationNext onClick={() => handleCurrentChange(currentPage + 1)} />
+              <PaginationNext onClick={() => handleCurrentChange(currentPage + 1)} {...paginationNextAttrs} />
             </PaginationItem>
           </PaginationContent>
         </Pagination>)

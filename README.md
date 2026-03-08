@@ -91,6 +91,9 @@
         let ele = <div>{scope[column.prop]}</div>;
         return ele;
       },
+      sortable: (scope, column, index) => {
+        console.log(scope, column, index);
+      },
     },
   ];
   const expandColumn = [
@@ -172,6 +175,12 @@ defPageSize：10, //默认的每页显示个数
 hideOnSinglePage:false, //当只有一页时是否隐藏分页器
 paginationAttrs //Pagination组件的屬性
 tableTableRows:[tableColumn,[...第二行的tableColumn]] //每条数据生成多行
+rowSelection:{
+  type: 'checkbox', // checkbox 
+}
+selectedRows: [], // 选中的行索引数组
+selectionChange:({ scope, index, selectedIndexs })=>{} // 选中行变化的回调函数
+page:1, //父组件控制当前页数
 
 安装：npm i general-basic-table<br/>
 install: npm i general-basic-table

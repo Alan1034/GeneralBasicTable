@@ -6,7 +6,7 @@ import {
 } from "lucide-react"
 
 import { cn } from "../../lib/utils"
-import { Button, buttonVariants } from "./button"
+import { buttonVariants, type Button } from "./button"
 
 function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
   return (
@@ -67,8 +67,9 @@ function PaginationLink({
 
 function PaginationPrevious({
   className,
+  text = "Previous",
   ...props
-}: React.ComponentProps<typeof PaginationLink>) {
+}: React.ComponentProps<typeof PaginationLink> & { text?: string }) {
   return (
     <PaginationLink
       aria-label="Go to previous page"
@@ -77,15 +78,16 @@ function PaginationPrevious({
       {...props}
     >
       <ChevronLeftIcon />
-      <span className="hidden sm:block">Previous</span>
+      <span className="hidden sm:block">{text}</span>
     </PaginationLink>
   )
 }
 
 function PaginationNext({
   className,
+  text = "Next",
   ...props
-}: React.ComponentProps<typeof PaginationLink>) {
+}: React.ComponentProps<typeof PaginationLink> & { text?: string }) {
   return (
     <PaginationLink
       aria-label="Go to next page"
@@ -93,7 +95,7 @@ function PaginationNext({
       className={cn("gap-1 px-2.5 sm:pr-2.5", className)}
       {...props}
     >
-      <span className="hidden sm:block">Next</span>
+      <span className="hidden sm:block">{text}</span>
       <ChevronRightIcon />
     </PaginationLink>
   )
