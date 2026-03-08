@@ -9,7 +9,7 @@
 // } from "@tanstack/react-table";
 // import { useState } from "react";
 import { ArrowDownUp } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ColumnSetting } from './ColumnSetting';
 export const BasicTable = (props) => {
   const {
@@ -27,7 +27,7 @@ export const BasicTable = (props) => {
     // parametersType = "url",
     DBPrimaryKey,
     // paginationAttrs = {},
-    coms: { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Button, Checkbox, TableCaption },
+    coms: { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, Button, Checkbox },
   } = props;
 
   const [selectedRows, setSelectedRows] = useState<Set<number>>(
